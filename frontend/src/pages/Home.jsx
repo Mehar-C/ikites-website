@@ -11,8 +11,8 @@ const INTRO_SCROLL_RATIO = 0.85
 
 const EXPERTS = [
   { initials: 'HC', name: 'Harjit Chatha', credentials: 'C.Eng, MBA, FIMarEST', role: 'Strategic Leader · Public Safety Technology & Emerging Tech', image: '/experts/Harjit%20Chatha.jpg', bio: 'Strategic leader and Naval veteran with deep expertise in project management, modernizing critical infrastructure, and applying AI, data analytics, and cloud technologies. Brings proven experience in vendor negotiations and regulatory compliance to public safety and emerging technology initiatives.' },
-  { initials: 'JJ', name: 'Justin Johnson', credentials: 'PMP, LEED AP, CM-LEAN', role: 'Account Executive · Buildots', image: '/experts/Justin%20Johnson%20-%20Headshot.jpeg', bio: 'Account Executive at Buildots, helping construction companies leverage technology for smarter project delivery. Brings experience managing complex projects and a strong understanding of industry challenges. Holds a Bachelor of Applied Science in Civil Engineering from the University of Waterloo.' },
-  { initials: 'ML', name: 'Michael Lepage', credentials: 'P.Eng, PMP', role: 'Digital Transformation & Project Delivery · iKites', image: '/experts/michael-lepage-headshot.jpg', bio: 'Engineer and project leader focused on digital transformation and project delivery. Combines technical depth with practical experience to help organizations adopt new tools and ways of working.' },
+  { initials: 'JJ', name: 'Justin Johnson', credentials: 'PMP, LEED AP, CM-LEAN', role: 'Account Executive · Buildots', image: '/experts/Justin%20Johnson%20-%20Headshot.jpeg', bio: 'Justin helps construction companies leverage technology for smarter project delivery. He brings rich experience managing complex projects and a strong understanding of industry challenges. Justin holds a Bachelor of Applied Science in Civil Engineering from the University of Waterloo.' },
+  { initials: 'ML', name: 'Michael Lepage', credentials: 'P.Eng, PMP', role: 'Digital Transformation & Project Delivery · iKites', image: '/experts/michael-lepage-headshot.jpg', bio: 'Michael has been teaching project controls for almost two decades. He founded Plan Academy in 2013 and has written and recorded hundreds of tutorials on planning and scheduling, Primavera P6 Professional, and project controls. A member of AACE, Michael is a trainer, a YouTuber, an author, and an advocate for better project controls.' },
   { initials: 'SS', name: 'Stan Shantz', credentials: 'Co-Founder & Vice President', role: 'Predictive Technology Expert · Perspect Analytics Inc.', image: '/experts/Stan%20Shantz.jpg', bio: 'Co-Founder and Vice President at Perspect Analytics Inc. and EverTech XR. Expert in predictive technologies and data-driven asset management, with experience across MRO, AM, FM, and IM. Drives mixed reality and analytics solutions for smarter asset and operations management.' },
   { initials: 'TS', name: 'Tom Stephenson', credentials: 'MBA, CM-LEAN, PMP', role: 'Professor & Construction Expert · George Brown College', image: '/experts/Tom%20Stephenson.jpg', bio: 'Professor and construction expert at George Brown College. Experienced lecturer, consultant, and author with contributions to BILD, OHBA, CHBA, and the Mechanical Contractors\' Association of Toronto. Recognized for teaching and industry engagement in construction management and lean practices.' },
   { initials: 'VC', name: 'Vikram Chauhan', credentials: 'P.Eng, PGMP, PMP, PMI-RMP', role: 'Senior Project Manager · Powell Inc', image: '/experts/Vikram%20Chauhan.jpg', bio: 'Naval veteran and Senior Project Manager with an Electrical Engineering degree and MBA from the University of Alberta. Over 15 years of project management experience in manufacturing and defence, including monitoring and execution of infrastructure projects exceeding US $400M. Expertise in technical management, supply chain and logistics, project finances, and repair, maintenance, and refurbishment of electrical equipment.' },
@@ -49,10 +49,6 @@ export default function Home() {
       <main className="landing-main">
         <FloatingShapes />
         <NoiseOverlay />
-        <div className="hero-status-bar" aria-hidden="true">
-          <span className="hero-status-dot" />
-          <span className="hero-status-text">SYSTEMS ONLINE</span>
-        </div>
         <div className="hero-inner">
           <div className="hero-content">
             <p className="hero-mission-id">iKites Consulting // ADVISORY & CONSULTING</p>
@@ -65,7 +61,10 @@ export default function Home() {
             <a href="#what-we-do" className="hero-cta">Explore capabilities<span className="cta-shine" aria-hidden="true" /></a>
           </div>
           <div className="hero-viz-wrap">
-            <img src="/chat.png" alt="" className="hero-viz-img" aria-hidden="true" />
+            <div className="hero-viz-inner">
+              <img src="/chat.png" alt="" className="hero-viz-img" aria-hidden="true" />
+              <span className="hero-viz-signal" aria-hidden="true" />
+            </div>
           </div>
         </div>
         <a href="#what-we-do" className="hero-scroll-hint" aria-label="Scroll to content">
@@ -76,15 +75,16 @@ export default function Home() {
 
       <ScrollReveal>
         <section className="what-we-do" id="what-we-do">
-          <p className="section-label section-label--mission">01 — CAPABILITIES</p>
           <h2 className="what-we-do-title">What We Do</h2>
           <div className="what-we-do-grid">
           <article className="what-we-do-card">
             <div className="what-we-do-card-icon" aria-hidden="true">
               <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="24" cy="24" r="20" stroke="currentColor" strokeWidth="1.5" opacity="0.4" />
-                <path d="M24 14v20M14 24h20" stroke="currentColor" strokeWidth="1.2" opacity="0.6" />
-                <circle cx="24" cy="24" r="8" stroke="currentColor" strokeWidth="1.5" />
+                <circle cx="24" cy="24" r="18" stroke="currentColor" strokeWidth="1.5" opacity="0.5" />
+                <circle cx="14" cy="18" r="4" stroke="currentColor" strokeWidth="1.5" />
+                <circle cx="34" cy="18" r="4" stroke="currentColor" strokeWidth="1.5" />
+                <circle cx="24" cy="32" r="4" stroke="currentColor" strokeWidth="1.5" />
+                <path d="M18 20l4 4M30 20l-4 4M20 34l4-6 4 6" stroke="currentColor" strokeWidth="1.2" opacity="0.8" />
               </svg>
             </div>
             <h3 className="what-we-do-card-title">AI & Digital Transformation</h3>
@@ -101,9 +101,8 @@ export default function Home() {
           <article className="what-we-do-card">
             <div className="what-we-do-card-icon" aria-hidden="true">
               <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M24 8v8M24 32v8M8 24h8M32 24h8" stroke="currentColor" strokeWidth="1.2" opacity="0.6" />
-                <circle cx="24" cy="24" r="14" stroke="currentColor" strokeWidth="1.5" />
-                <circle cx="24" cy="24" r="4" fill="currentColor" opacity="0.8" />
+                <path d="M16 22v-2a8 8 0 0116 0v2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                <path d="M16 22h4v10a4 4 0 008 0V22h4a2 2 0 012 2v6a2 2 0 01-2 2H16a2 2 0 01-2-2v-6a2 2 0 012-2z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
             <h3 className="what-we-do-card-title">NG911 Turnkey Support for PSAPs</h3>
@@ -121,8 +120,11 @@ export default function Home() {
           <article className="what-we-do-card">
             <div className="what-we-do-card-icon" aria-hidden="true">
               <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="8" y="12" width="32" height="24" rx="2" stroke="currentColor" strokeWidth="1.5" />
-                <path d="M16 20h16M16 24h12M16 28h8" stroke="currentColor" strokeWidth="1.2" opacity="0.7" />
+                <rect x="6" y="10" width="14" height="10" rx="1" stroke="currentColor" strokeWidth="1.5" />
+                <rect x="28" y="10" width="14" height="10" rx="1" stroke="currentColor" strokeWidth="1.5" />
+                <rect x="6" y="28" width="14" height="10" rx="1" stroke="currentColor" strokeWidth="1.5" />
+                <rect x="28" y="28" width="14" height="10" rx="1" stroke="currentColor" strokeWidth="1.5" />
+                <path d="M20 15h8M20 33h8" stroke="currentColor" strokeWidth="1.2" opacity="0.6" />
               </svg>
             </div>
             <h3 className="what-we-do-card-title">Real-Time Operations Centre (RTOC)</h3>
@@ -140,7 +142,9 @@ export default function Home() {
           <article className="what-we-do-card">
             <div className="what-we-do-card-icon" aria-hidden="true">
               <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M24 16l4 8 8 2-6 6 2 8-8-4-8 4 2-8-6-6 8-2 4-8z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" fill="none" />
+                <path d="M24 12l-14 7v8l14 7 14-7v-8L24 12z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+                <path d="M10 27l14 7 14-7M24 19v15" stroke="currentColor" strokeWidth="1.2" opacity="0.7" />
+                <path d="M20 12l4-4 4 4-4 4-4-4z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
               </svg>
             </div>
             <h3 className="what-we-do-card-title">Workforce Upskilling</h3>
@@ -160,29 +164,43 @@ export default function Home() {
 
       <ScrollReveal>
       <section className="who-we-serve">
-        <p className="section-label section-label--mission">02 — WHO WE SERVE</p>
-        <h2 className="section-heading">We partner with organizations committed to meaningful transformation.</h2>
+        <h2 className="section-heading">We partner with organizations committed to meaningful transformation</h2>
         <div className="who-we-serve-grid">
           <article className="serve-card">
-            <div className="serve-card-icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M24 8L8 16v16l16 8 16-8V16L24 8z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" fill="none" /></svg>
+            <div className="serve-card-image-wrap">
+              <img src="/article-photos/public-sector-emergency-services.png" alt="" className="serve-card-image" />
             </div>
-            <h3 className="serve-card-title">Public Sector & Emergency Services</h3>
-            <p className="serve-card-desc">Governments, PSAPs, utilities, and municipalities.</p>
+            <div className="serve-card-title-block">
+              <div className="serve-card-title-row">
+                <span className="serve-card-dot" aria-hidden="true" />
+                <h3 className="serve-card-title">Public Sector & Emergency Services</h3>
+              </div>
+              <p className="serve-card-subtitle">Governments, PSAPs, utilities, and municipalities.</p>
+            </div>
           </article>
           <article className="serve-card">
-            <div className="serve-card-icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="18" r="6" stroke="currentColor" strokeWidth="1.5" /><circle cx="30" cy="30" r="6" stroke="currentColor" strokeWidth="1.5" /><path d="M24 24l6-6M24 24l-6 6" stroke="currentColor" strokeWidth="1.2" /></svg>
+            <div className="serve-card-image-wrap">
+              <img src="/article-photos/associations-nonprofits.png" alt="" className="serve-card-image" />
             </div>
-            <h3 className="serve-card-title">Associations & Non For Profits</h3>
-            <p className="serve-card-desc">Workforce, construction, and healthcare partners.</p>
+            <div className="serve-card-title-block">
+              <div className="serve-card-title-row">
+                <span className="serve-card-dot" aria-hidden="true" />
+                <h3 className="serve-card-title">Associations & Non For Profits</h3>
+              </div>
+              <p className="serve-card-subtitle">Workforce, construction, and healthcare partners.</p>
+            </div>
           </article>
           <article className="serve-card">
-            <div className="serve-card-icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="14" width="28" height="20" rx="2" stroke="currentColor" strokeWidth="1.5" /><path d="M16 22h16M16 28h12" stroke="currentColor" strokeWidth="1.2" opacity="0.8" /></svg>
+            <div className="serve-card-image-wrap">
+              <img src="/article-photos/enterprises-smes.png" alt="" className="serve-card-image" />
             </div>
-            <h3 className="serve-card-title">Enterprises & SMEs</h3>
-            <p className="serve-card-desc">Seeking expert-led AI and digital transformation.</p>
+            <div className="serve-card-title-block">
+              <div className="serve-card-title-row">
+                <span className="serve-card-dot" aria-hidden="true" />
+                <h3 className="serve-card-title">Enterprises & SMEs</h3>
+              </div>
+              <p className="serve-card-subtitle">Seeking expert-led AI and digital transformation.</p>
+            </div>
           </article>
         </div>
       </section>
@@ -190,7 +208,6 @@ export default function Home() {
 
       <ScrollReveal>
       <section className="the-collaborative">
-        <p className="section-label section-label--mission">04 — THE COLLABORATIVE</p>
         <p className="collab-intro">We shape smarter systems through expert collaboration</p>
         <h2 className="collab-title">The Collaborative</h2>
         <p className="collab-subtitle">Where human collaboration meets intelligent technology</p>
@@ -202,7 +219,7 @@ export default function Home() {
           {[
             { name: 'PROCORE', logo: '/logos/procore.svg', url: 'https://www.procore.com/en-ca' },
             { name: 'EverTech XR', logo: '/logos/Evertech%20XR.png', url: 'https://evertechxr.com/' },
-            { name: 'BUILDOTS', logo: '/logos/buildots.png', url: 'https://buildots.com/' },
+            { name: 'BUILDOTS', logo: '/logos/buildots.png', url: 'https://buildots.com/', smallLogo: true },
             { name: 'Perspect Analytics', logo: '/logos/perspect%20analytics.png', url: 'https://perspectanalytics.com/' },
           ].map((partner) => (
             <a
@@ -212,7 +229,7 @@ export default function Home() {
               rel="noopener noreferrer"
               className="collab-partner-item"
             >
-              <span className="collab-partner-logo-wrap">
+              <span className={`collab-partner-logo-wrap${partner.smallLogo ? ' collab-partner-logo-wrap--small' : ''}`}>
                 <img
                   src={partner.logo}
                   alt=""
@@ -239,7 +256,6 @@ export default function Home() {
 
       <ScrollReveal>
       <section className="the-experts">
-        <p className="section-label section-label--mission">05 — THE EXPERTS</p>
         <h2 className="experts-title">The Experts</h2>
         <p className="experts-subtitle">Human intelligence driving AI-enabled transformation</p>
         <div className="experts-card">
@@ -261,7 +277,6 @@ export default function Home() {
               <div className="expert-info">
                 <h3 className="expert-name">{expert.name.toUpperCase()}</h3>
                 <p className="expert-credentials">{expert.credentials}</p>
-                <p className="expert-role">{expert.role}</p>
                 {expandedExpert === expert.initials ? (
                   <>
                     <p className="expert-bio">{expert.bio}</p>
@@ -294,12 +309,10 @@ export default function Home() {
                     <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
                   </filter>
                 </defs>
-                {/* Faint grid – subtle pulse */}
                 <g className="orb-grid" stroke="rgba(14, 165, 233, 0.08)" strokeWidth="0.5">
                   {[40, 80, 120, 160, 200, 240, 280].map((x) => (<line key={`v${x}`} x1={x} y1={20} x2={x} y2={180} />))}
                   {[40, 80, 120, 160, 200].map((y) => (<line key={`h${y}`} x1={20} y1={y} x2={300} y2={y} />))}
                 </g>
-                {/* Wireframe sphere – rotating */}
                 <g className="orb-wireframe">
                   <ellipse cx={160} cy={100} rx={72} ry={24} stroke="#0ea5e9" strokeWidth="1.2" fill="none" opacity="0.85" />
                   <ellipse cx={160} cy={78} rx={58} ry={18} stroke="#0ea5e9" strokeWidth="1" fill="none" opacity="0.7" />
@@ -311,25 +324,22 @@ export default function Home() {
                   <path d="M 128 58 Q 100 100 128 142" stroke="#0ea5e9" strokeWidth="0.9" fill="none" opacity="0.5" />
                   <path d="M 192 58 Q 220 100 192 142" stroke="#0ea5e9" strokeWidth="0.9" fill="none" opacity="0.5" />
                 </g>
-                {/* Central disc – pulse */}
+                {/* Moving dash – travels along the main orbit */}
+                <ellipse className="orb-orbit-dash" cx={160} cy={100} rx={72} ry={24} stroke="#7dd3fc" strokeWidth="3" fill="none" strokeDasharray="12 999" strokeLinecap="round" />
                 <circle className="orb-core" cx={160} cy={100} r={22} fill="url(#orbCore)" filter="url(#orbGlow)" />
                 <circle className="orb-core-ring" cx={160} cy={100} r={22} stroke="#7dd3fc" strokeWidth="1" fill="none" opacity="0.6" />
-                {/* Nodes – staggered pulse */}
                 {[
                   [160, 34], [128, 58], [192, 58], [88, 100], [160, 100], [232, 100], [128, 142], [192, 142], [160, 166],
                 ].map(([x, y], i) => (
                   <circle key={i} className="orb-node" cx={x} cy={y} r={2.5} fill="#7dd3fc" opacity="0.95" filter="url(#orbGlow)" style={{ animationDelay: `${i * 0.15}s` }} />
                 ))}
-                {/* Labels – static */}
-                <text x={160} y={28} textAnchor="middle" fill="rgba(226, 232, 240, 0.9)" fontSize="9" fontWeight="600">API</text>
-                <text x={108} y={52} textAnchor="middle" fill="rgba(226, 232, 240, 0.85)" fontSize="9" fontWeight="600">ML</text>
-                <text x={70} y={98} textAnchor="middle" fill="rgba(226, 232, 240, 0.85)" fontSize="8" fontWeight="600">N-NET</text>
-                <text x={250} y={98} textAnchor="middle" fill="rgba(226, 232, 240, 0.85)" fontSize="8" fontWeight="600">D-STREAM</text>
+                <text x={160} y={28} textAnchor="middle" fill="rgba(226, 232, 240, 0.95)" fontSize="10" fontWeight="700" className="orb-label">Assess</text>
+                <text x={58} y={102} textAnchor="middle" fill="rgba(226, 232, 240, 0.95)" fontSize="10" fontWeight="700" className="orb-label">Assemble</text>
+                <text x={262} y={102} textAnchor="middle" fill="rgba(226, 232, 240, 0.95)" fontSize="10" fontWeight="700" className="orb-label">Deliver</text>
               </svg>
             </div>
           </div>
           <div className="approach-ribbon-content">
-            <p className="approach-ribbon-label">03 — APPROACH</p>
             <h2 className="approach-ribbon-title">The iKites approach</h2>
             <ul className="approach-ribbon-list">
               <li><span className="approach-ribbon-check" aria-hidden="true" />Assess — We conduct readiness and gap analyses.</li>
