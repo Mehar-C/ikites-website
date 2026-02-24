@@ -128,7 +128,7 @@ export default function Contact() {
           </div>
         </div>
         <div className="site-footer-bar">
-          <p className="site-footer-copy">© 2024 iKites Consulting Inc. All rights reserved.</p>
+          <p className="site-footer-copy">© 2026 iKites Consulting Inc. All rights reserved.</p>
         </div>
       </footer>
     </div>
