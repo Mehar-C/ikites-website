@@ -138,7 +138,9 @@ export default function FromLegacy911ToNg911() {
       </p>
 
       <div className="article-author-box">
-        <div className="article-author-avatar" aria-hidden="true" />
+        <div className="article-author-avatar" aria-hidden="true">
+          <img src="/experts/Harjit%20Chatha.jpg" alt="" className="article-author-avatar-img" />
+        </div>
         <div className="article-author-info">
           <p className="article-author-name"><strong>Harjit Chatha – Author</strong></p>
           <p className="article-author-bio">

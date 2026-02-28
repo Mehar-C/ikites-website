@@ -108,8 +108,7 @@ export default function Contact() {
       <footer className="site-footer">
         <div className="site-footer-inner">
           <div className="site-footer-brand">
-            <img src="/final%20logo.png" alt="iKites Consulting" className="site-footer-logo-img" />
-            <span className="site-footer-tagline">Consulting</span>
+            <img src="/footerlogo.png" alt="iKites Consulting" className="site-footer-logo-img" />
             <p className="site-footer-address">Location: 145 1/2 Church Street, Toronto, ON M5B 1Y4, Canada</p>
           </div>
           <div className="site-footer-col">
@@ -128,7 +127,7 @@ export default function Contact() {
           </div>
         </div>
         <div className="site-footer-bar">
-          <p className="site-footer-copy">© 2026 iKites Consulting Inc. All rights reserved.</p>
+          <p className="site-footer-copy">© 2026 iKites Inc. All rights reserved.</p>
         </div>
       </footer>
     </div>

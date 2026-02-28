@@ -43,7 +43,9 @@ export default function AIAndProjectManagement() {
       </p>
 
       <div className="article-author-box">
-        <div className="article-author-avatar" aria-hidden="true" />
+        <div className="article-author-avatar" aria-hidden="true">
+          <img src="/experts/Manan%20Anand.jpg" alt="" className="article-author-avatar-img" />
+        </div>
         <div className="article-author-info">
           <p className="article-author-name"><strong>Manan Anand – Author</strong></p>
           <p className="article-author-bio">
