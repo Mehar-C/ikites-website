@@ -24,49 +24,7 @@ export default function IntroSequence({ scrollProgress = 0, onSkip }) {
       }}
     >
       <div className="intro-sequence__bg" />
-      <div className="intro-sequence__fluid" aria-hidden="true">
-        <svg className="intro-sequence__fluid-svg" viewBox="0 0 1200 800" preserveAspectRatio="xMaxYMin slice" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="introFluidGrad1" x1="100%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="rgba(255,255,255,0.2)" />
-              <stop offset="40%" stopColor="rgba(125,211,252,0.35)" />
-              <stop offset="100%" stopColor="rgba(14,165,233,0.15)" />
-            </linearGradient>
-            <linearGradient id="introFluidGrad2" x1="100%" y1="0%" x2="20%" y2="80%">
-              <stop offset="0%" stopColor="rgba(255,255,255,0.12)" />
-              <stop offset="50%" stopColor="rgba(14,165,233,0.25)" />
-              <stop offset="100%" stopColor="rgba(14,165,233,0.05)" />
-            </linearGradient>
-            <filter id="introFluidBlur" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur in="SourceGraphic" stdDeviation="24" result="blur" />
-              <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
-            </filter>
-          </defs>
-          {/* Subtle grid - top-right to center */}
-          <g className="intro-sequence__fluid-grid" stroke="rgba(255,255,255,0.03)" strokeWidth="0.3">
-            {[0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200].map((x) => (
-              <line key={`gx-${x}`} x1={x} y1={0} x2={x - 400} y2={800} />
-            ))}
-            {[0, 100, 200, 300, 400, 500, 600, 700, 800].map((y) => (
-              <line key={`gy-${y}`} x1={1200} y1={y} x2={-200} y2={y + 400} />
-            ))}
-          </g>
-          {/* Organic blob 1 - main wave from top-right */}
-          <path
-            className="intro-sequence__fluid-blob intro-sequence__fluid-blob--1"
-            d="M 1200 -50 Q 1100 150 1000 280 T 700 450 T 400 550 T 50 520 Q -100 500 -50 800 L 1200 800 Z"
-            fill="url(#introFluidGrad1)"
-            filter="url(#introFluidBlur)"
-          />
-          {/* Organic blob 2 - secondary flow */}
-          <path
-            className="intro-sequence__fluid-blob intro-sequence__fluid-blob--2"
-            d="M 1200 100 Q 950 200 800 350 T 500 550 Q 200 650 0 600 L 0 800 L 1200 800 Z"
-            fill="url(#introFluidGrad2)"
-            filter="url(#introFluidBlur)"
-          />
-        </svg>
-      </div>
+      <div className="intro-sequence__fluid" aria-hidden="true" />
 
       <p className="intro-sequence__company">iKites Consulting</p>
       <p className="intro-sequence__tagline">{TAGLINE}</p>
