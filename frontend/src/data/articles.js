@@ -15,7 +15,7 @@ export const articles = [
   },
   {
     slug: 'ai-and-project-management',
-    title: 'AI and Project Management: The Future of Smarter, Faster, and More Predictable Projects',
+    title: 'Your Next Project Manager Might Not Be Human',
     meta: 'AI & Digital Transformation, Project Management, Insights',
     excerpt: 'Artificial Intelligence is reshaping how projects are planned, executed, and delivered. Here’s how AI-powered tools are driving a new era of efficiency and innovation…',
     imageVariant: '2',
