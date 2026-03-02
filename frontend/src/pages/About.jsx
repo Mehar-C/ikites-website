@@ -201,8 +201,7 @@ export default function About() {
       <footer className="site-footer">
         <div className="site-footer-inner">
           <div className="site-footer-brand">
-            <img src="/footerlogo.png" alt="iKites Consulting" className="site-footer-logo-img" />
-            <p className="site-footer-address">Location: 145 1/2 Church Street, Toronto, ON M5B 1Y4, Canada</p>
+            <img src="/final.png" alt="iKites Consulting" className="site-footer-logo-img" />
           </div>
           <div className="site-footer-col">
             <h4 className="site-footer-col-title">Company</h4>
@@ -218,6 +217,9 @@ export default function About() {
               <li><Link to="/contact">Contact</Link></li>
             </ul>
           </div>
+          <p className="site-footer-address site-footer-address--under-cols">
+            Location: 145 1/2 Church Street, Toronto, ON M5B 1Y4, Canada
+          </p>
         </div>
         <div className="site-footer-bar">
           <p className="site-footer-copy">© 2026 iKites Inc. All rights reserved.</p>
