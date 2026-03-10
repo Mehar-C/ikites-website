@@ -221,6 +221,7 @@ export default function Home() {
             { name: 'EverTech XR', logo: '/logos/Evertech%20XR.png', url: 'https://evertechxr.com/' },
             { name: 'BUILDOTS', logo: '/logos/buildots.png', url: 'https://buildots.com/', smallLogo: true },
             { name: 'Perspect Analytics', logo: '/logos/perspect%20analytics.png', url: 'https://perspectanalytics.com/' },
+            { name: 'Plan Academy', logo: '/logos/plan.png', url: 'https://www.planacademy.com/', smallerLogo: true },
           ].map((partner) => (
             <a
               key={partner.name}
@@ -229,7 +230,7 @@ export default function Home() {
               rel="noopener noreferrer"
               className="collab-partner-item"
             >
-              <span className={`collab-partner-logo-wrap${partner.smallLogo ? ' collab-partner-logo-wrap--small' : ''}`}>
+              <span className={`collab-partner-logo-wrap${partner.smallLogo ? ' collab-partner-logo-wrap--small' : ''}${partner.smallerLogo ? ' collab-partner-logo-wrap--smaller' : ''}`}>
                 <img
                   src={partner.logo}
                   alt=""

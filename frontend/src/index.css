@@ -1885,6 +1885,11 @@ body {
   height: 42px;
 }
 
+.collab-partner-logo-wrap--smaller {
+  width: 135px;
+  height: 56px;
+}
+
 .collab-partner-img {
   display: none;
   width: 100%;
