@@ -2377,6 +2377,10 @@ body {
   background: linear-gradient(145deg, rgba(37, 99, 235, 0.1) 0%, rgba(14, 165, 233, 0.12) 100%);
 }
 
+.blog-post-image--4 {
+  background: linear-gradient(145deg, rgba(14, 165, 233, 0.12) 0%, rgba(26, 54, 93, 0.14) 50%, rgba(37, 99, 235, 0.08) 100%);
+}
+
 .blog-post-meta {
   font-family: var(--font-display);
   font-size: 0.7rem;
@@ -2776,6 +2780,10 @@ body {
   background: linear-gradient(145deg, rgba(37, 99, 235, 0.1) 0%, rgba(14, 165, 233, 0.12) 100%);
 }
 
+.article-hero-image--4 {
+  background: linear-gradient(145deg, rgba(14, 165, 233, 0.12) 0%, rgba(26, 54, 93, 0.14) 50%, rgba(37, 99, 235, 0.08) 100%);
+}
+
 .article-body {
   font-family: var(--font-body);
   font-size: 1.05rem;
@@ -2867,6 +2875,82 @@ body {
 .article-placeholder {
   color: var(--text-secondary);
   font-style: italic;
+}
+
+.article-promex-logos {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-light);
+}
+
+.article-promex-logos-label {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin: 0 0 1.25rem 0;
+  text-align: center;
+}
+
+.article-promex-logos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem 1.25rem;
+  align-items: stretch;
+  justify-items: stretch;
+}
+
+.article-promex-logo-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 80px;
+  padding: 0.85rem 1rem;
+  background: var(--bg-page);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-light);
+}
+
+.article-promex-logo-item img {
+  width: 100%;
+  height: auto;
+  max-height: 68px;
+  object-fit: contain;
+  object-position: center;
+}
+
+/* One ministry strip split across three matching cards (background pan) */
+.article-promex-funder-bg {
+  background-image: url('/logos/ministry%20logo.jpg');
+  background-repeat: no-repeat;
+  background-size: 300% auto;
+  background-position: 0% 50%;
+}
+
+.article-promex-funder-bg--center {
+  background-position: 50% 50%;
+}
+
+.article-promex-funder-bg--end {
+  background-position: 100% 50%;
+}
+
+@media (max-width: 640px) {
+  .article-promex-logos-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.article-disclaimer {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin-top: 2rem !important;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-light);
 }
 
 .article-placeholder code {
@@ -2971,10 +3055,10 @@ body {
 .site-footer-inner {
   max-width: 72rem;
   margin: 0 auto;
-  padding: 3.5rem 2rem 3rem;
+  padding: 2.25rem 2rem 1.75rem;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 1rem 3rem;
+  gap: 0.75rem 2rem;
   align-items: start;
   justify-items: start;
 }
@@ -2982,17 +3066,18 @@ body {
 .site-footer-brand {
   max-width: 100%;
   text-align: left;
-  grid-row: 1 / span 2;
+  grid-row: 1;
+  align-self: start;
 }
 
 .site-footer-logo-img {
-  height: 210px;
+  height: 140px;
   width: auto;
   max-width: 100%;
   display: block;
   object-fit: contain;
   object-position: left top;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.25rem;
 }
 
 .site-footer-tagline {
@@ -3007,14 +3092,14 @@ body {
 }
 
 .site-footer-address {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   color: rgba(255, 255, 255, 0.5);
   margin: 0;
-  line-height: 1.6;
+  line-height: 1.55;
 }
 
 .site-footer-address--under-cols {
-  grid-column: 2 / -1;
+  grid-column: 1 / -1;
   grid-row: 2;
   align-self: start;
   margin-top: 0;
@@ -3026,12 +3111,12 @@ body {
 
 .site-footer-col-title {
   font-family: var(--font-display);
-  font-size: 0.7rem;
+  font-size: 0.9rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-accent);
-  margin: 0 0 1rem 0;
+  margin: 0 0 0.65rem 0;
 }
 
 .site-footer-col-list {
@@ -3045,7 +3130,7 @@ body {
 }
 
 .site-footer-col-list a {
-  font-size: 0.875rem;
+  font-size: 1.05rem;
   color: rgba(255, 255, 255, 0.85);
   text-decoration: none;
   transition: color 0.2s ease;
@@ -3058,7 +3143,7 @@ body {
 /* Sub-footer bar */
 .site-footer-bar {
   background: rgba(0, 0, 0, 0.45);
-  padding: 1rem 2rem;
+  padding: 0.65rem 2rem;
 }
 
 .site-footer-copy {
@@ -3077,8 +3162,8 @@ body {
 @media (max-width: 700px) {
   .site-footer-inner {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
-    padding: 2.5rem 2rem 2.5rem;
+    gap: 1.75rem;
+    padding: 2rem 2rem 1.75rem;
     justify-items: start;
   }
   .site-footer-address--under-cols {
@@ -3088,12 +3173,16 @@ body {
   .site-footer-brand {
     max-width: none;
     grid-row: auto;
+    align-self: start;
+  }
+  .site-footer-logo-img {
+    height: 110px;
   }
   .site-footer-col {
     min-width: 0;
   }
   .site-footer-bar {
-    padding: 0.875rem 2rem;
+    padding: 0.65rem 2rem;
   }
 }
 

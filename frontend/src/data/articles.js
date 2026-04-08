@@ -4,6 +4,16 @@
  */
 export const articles = [
   {
+    slug: 'tools-ready-are-your-people',
+    title: 'The Tools Are Ready. Are Your People?',
+    meta: 'Construction, Technology Adoption, PROMEX, Insights',
+    excerpt: 'Technology is here — but competitive advantage depends on whether organisations can absorb and use it. How PROMEX closed the adoption gap for Ontario construction professionals…',
+    imageVariant: '4',
+    image: '/article-photos/High-tech%20construction%20at%20dusk.png',
+    tags: ['Construction', 'Technology', 'AI', 'Digital Transformation', 'Insights'],
+    body: null,
+  },
+  {
     slug: 'from-legacy-911-to-ng911',
     title: 'From Legacy 911 to NG911: Navigating the Future of Emergency Communications',
     meta: 'NG911, Public Sector, Insights',

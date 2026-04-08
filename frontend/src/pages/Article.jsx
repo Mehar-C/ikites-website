@@ -4,6 +4,7 @@ import { getArticleBySlug } from '../data/articles'
 import FromLegacy911ToNg911 from '../components/articleContent/FromLegacy911ToNg911'
 import AIAndProjectManagement from '../components/articleContent/AIAndProjectManagement'
 import GNSSEnhancementsSmartNav from '../components/articleContent/GNSSEnhancementsSmartNav'
+import ToolsReadyAreYourPeople from '../components/articleContent/ToolsReadyAreYourPeople'
 
 export default function Article() {
   const { slug } = useParams()
@@ -37,7 +38,9 @@ export default function Article() {
           {article.image && <img src={article.image} alt="" className="article-hero-image-img" />}
         </div>
         <div className="article-body">
-          {article.slug === 'from-legacy-911-to-ng911' ? (
+          {article.slug === 'tools-ready-are-your-people' ? (
+            <ToolsReadyAreYourPeople />
+          ) : article.slug === 'from-legacy-911-to-ng911' ? (
             <FromLegacy911ToNg911 />
           ) : article.slug === 'ai-and-project-management' ? (
             <AIAndProjectManagement />

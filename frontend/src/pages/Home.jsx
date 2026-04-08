@@ -147,7 +147,7 @@ export default function Home() {
                 <path d="M20 12l4-4 4 4-4 4-4-4z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
               </svg>
             </div>
-            <h3 className="what-we-do-card-title">Workforce Upskilling</h3>
+            <h3 className="what-we-do-card-title">Technology Adaptation</h3>
             <p className="what-we-do-card-desc">
               Empowering organizations and teams to confidently adopt emerging technologies and integrate them into daily operations — across public service, healthcare, education, infrastructure, and enterprise sectors.
             </p>
@@ -359,7 +359,7 @@ export default function Home() {
           <Link to="/insights" className="blog-posts-link">See all blog posts &rarr;</Link>
         </div>
         <div className="blog-posts-grid">
-          {articles.map((post) => (
+          {articles.slice(0, 3).map((post) => (
             <Link key={post.slug} to={`/insights/${post.slug}`} className="blog-post-card">
               <div className={`blog-post-image blog-post-image--${post.imageVariant}`} aria-hidden="true">
                 {post.image && <img src={post.image} alt="" className="blog-post-image-img" />}
