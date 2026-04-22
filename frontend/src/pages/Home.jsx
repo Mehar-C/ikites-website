@@ -53,7 +53,7 @@ export default function Home() {
           <div className="hero-content">
             <p className="hero-mission-id">iKites Consulting // ADVISORY & CONSULTING</p>
             <h1 className="hero-headline">
-              Public safety tech, AI, and digital transformation — <span className="hero-headline-accent">led by experts.</span>
+              Public safety tech, AI, and Digital transformation — <span className="hero-headline-accent">led by experts.</span>
             </h1>
             <p className="hero-subheadline">
               We bring together domain specialists to deliver measurable impact for governments, nonprofits, and industry through smart project management and emerging technology.
@@ -147,7 +147,7 @@ export default function Home() {
                 <path d="M20 12l4-4 4 4-4 4-4-4z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
               </svg>
             </div>
-            <h3 className="what-we-do-card-title">Technology Adaptation</h3>
+            <h3 className="what-we-do-card-title">Technology Adoption</h3>
             <p className="what-we-do-card-desc">
               Empowering organizations and teams to confidently adopt emerging technologies and integrate them into daily operations — across public service, healthcare, education, infrastructure, and enterprise sectors.
             </p>
@@ -384,25 +384,29 @@ export default function Home() {
       <footer className="site-footer">
         <div className="site-footer-inner">
           <div className="site-footer-brand">
-            <img src="/final.png" alt="iKites Consulting" className="site-footer-logo-img" />
+            <img src="/newlogodarkhd.png" alt="iKites Consulting" className="site-footer-logo-img" />
           </div>
-          <div className="site-footer-col">
-            <h4 className="site-footer-col-title">Company</h4>
-            <ul className="site-footer-col-list">
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/about">About</Link></li>
-            </ul>
+          <div className="site-footer-cols">
+            <div className="site-footer-cols__links">
+              <div className="site-footer-col">
+                <h4 className="site-footer-col-title">Company</h4>
+                <ul className="site-footer-col-list">
+                  <li><Link to="/">Home</Link></li>
+                  <li><Link to="/about">About</Link></li>
+                </ul>
+              </div>
+              <div className="site-footer-col">
+                <h4 className="site-footer-col-title">Connect</h4>
+                <ul className="site-footer-col-list">
+                  <li><Link to="/insights">Insights</Link></li>
+                  <li><Link to="/contact">Contact</Link></li>
+                </ul>
+              </div>
+            </div>
+            <p className="site-footer-address site-footer-address--under-cols">
+              Location: 145 1/2 Church Street, Toronto, ON M5B 1Y4, Canada
+            </p>
           </div>
-          <div className="site-footer-col">
-            <h4 className="site-footer-col-title">Connect</h4>
-            <ul className="site-footer-col-list">
-              <li><Link to="/insights">Insights</Link></li>
-              <li><Link to="/contact">Contact</Link></li>
-            </ul>
-          </div>
-          <p className="site-footer-address site-footer-address--under-cols">
-            Location: 145 1/2 Church Street, Toronto, ON M5B 1Y4, Canada
-          </p>
         </div>
         <div className="site-footer-bar">
           <p className="site-footer-copy">© 2026 iKites Inc. All rights reserved.</p>

@@ -84,7 +84,7 @@ export default function ToolsReadyAreYourPeople() {
         <p className="article-promex-logos-label">Program partners and funders</p>
         <div className="article-promex-logos-grid">
           <div className="article-promex-logo-item">
-            <img src="/logos/ECAO%20logo.jpg" alt="Electrical Contractors Association of Ontario (ECAO)" />
+            <img src="/logos/ecaohd.png" alt="Electrical Contractors Association of Ontario (ECAO)" />
           </div>
           <div className="article-promex-logo-item">
             <img src="/logos/mcao%20logo.png" alt="Mechanical Contractors Association of Ontario (MCA Ontario)" />

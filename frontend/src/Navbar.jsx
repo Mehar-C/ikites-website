@@ -16,11 +16,11 @@ export default function Navbar() {
         <div className="site-logo-wrap">
           <NavLink to="/" className="site-logo" end onClick={handleLogoClick} aria-label="iKites Consulting – return to home">
             <span className="site-logo-crop">
-              <img src="/final.png" alt="" className="site-logo-img" />
+              <img src="/newlogolighthd.png" alt="" className="site-logo-img" />
             </span>
           </NavLink>
         </div>
-        <nav className="nav">
+        <nav className="nav" aria-label="Main">
           <ul className="nav-links">
             <li><NavLink to="/" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'} end>Home</NavLink></li>
             <li><NavLink to="/about" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>About</NavLink></li>

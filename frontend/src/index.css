@@ -34,11 +34,14 @@
   /* Responsive: horizontal padding scales with viewport */
   --page-padding: clamp(1rem, 4vw, 2rem);
   /* Shared left inset for header + footer (must match for vertical logo alignment) */
-  --page-edge-left: max(0.2rem, min(0.5rem, 1.2vw), env(safe-area-inset-left, 0px));
+  --page-edge-left: max(0.5rem, min(0.9rem, 2vw), env(safe-area-inset-left, 0px));
+  /* Footer mark + address: nudged left so they line up with header (PNG trim differs between light/dark assets) */
+  --site-footer-pad-left: max(0.2rem, calc(var(--page-edge-left) - 0.45rem));
 }
 
 html {
-  font-size: clamp(12px, 1.7vw + 9.5px, 16px);
+  /* Fluid root — bump ~12% so all rem-based type scales sitewide */
+  font-size: clamp(14px, 1.8vw + 10px, 18px);
   scroll-behavior: smooth;
 }
 
@@ -1946,11 +1949,6 @@ body {
   max-width: 72rem;
   margin: 0 auto;
   text-align: center;
-  background-image:
-    linear-gradient(rgba(14, 165, 233, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(14, 165, 233, 0.04) 1px, transparent 1px);
-  background-size: 24px 24px;
-  border-radius: var(--radius-lg);
 }
 
 .experts-title {
@@ -1964,9 +1962,11 @@ body {
 
 .experts-subtitle {
   font-size: 1rem;
-  font-weight: 500;
-  color: var(--color-accent);
+  font-weight: 600;
+  /* Darker than --color-accent for contrast on the light section background */
+  color: #0c4a6e;
   margin: 0 0 1.75rem 0;
+  letter-spacing: 0.02em;
 }
 
 .experts-card {
@@ -2924,20 +2924,26 @@ body {
   object-position: center;
 }
 
-/* One ministry strip split across three matching cards (background pan) */
+/* Funder cards: default tile styling (per-cell assets below) */
 .article-promex-funder-bg {
-  background-image: url('/logos/ministry%20logo.jpg');
   background-repeat: no-repeat;
-  background-size: 300% auto;
-  background-position: 0% 50%;
+  background-size: contain;
+  background-position: center center;
 }
 
+/* Canada */
+.article-promex-funder-bg--start {
+  background-image: url('/logos/canhd.jpg');
+}
+
+/* Employment Ontario */
 .article-promex-funder-bg--center {
-  background-position: 50% 50%;
+  background-image: url('/logos/employonthd.webp');
 }
 
+/* Government of Ontario */
 .article-promex-funder-bg--end {
-  background-position: 100% 50%;
+  background-image: url('/logos/onthd.png');
 }
 
 @media (max-width: 640px) {
@@ -3046,39 +3052,68 @@ body {
   content: '';
   position: absolute;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(72rem, 100%);
+  left: 0;
+  transform: none;
+  width: 100%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(14, 165, 233, 0.25) 30%, rgba(14, 165, 233, 0.25) 70%, transparent);
+  background: linear-gradient(90deg, rgba(14, 165, 233, 0.2) 0%, rgba(14, 165, 233, 0.25) 40%, rgba(14, 165, 233, 0.25) 60%, transparent 100%);
   pointer-events: none;
 }
 
 .site-footer-inner {
-  max-width: 72rem;
-  margin: 0 auto;
-  /* Same horizontal inset as .site-header (right = page-padding, left = tighter edge) */
-  padding: 2.25rem var(--page-padding) 1.75rem var(--page-edge-left);
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 0.75rem 2rem;
-  align-items: start;
-  justify-items: start;
+  /* Full width so link columns can sit on the right edge; logo still uses --page-edge-left */
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  /* Left: --site-footer-pad-left lines up with header logo; right matches page padding */
+  padding: 2.25rem var(--page-padding) 1.75rem var(--site-footer-pad-left);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  row-gap: 1.5rem;
+  column-gap: 0;
   box-sizing: border-box;
 }
 
 .site-footer-brand {
+  flex: 0 0 auto;
   max-width: 100%;
   text-align: left;
-  grid-row: 1;
   align-self: start;
 }
 
+/* Company + Connect + location: column stack; links row on top, address beneath */
+.site-footer-cols {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.85rem;
+  margin-left: 0.5rem;
+  box-sizing: border-box;
+  padding: 0 clamp(1.5rem, 4.5vw, 3.5rem) 0 0.75rem;
+  transform: translateX(clamp(0.4rem, 1.2vw, 1.5rem));
+}
+
+.site-footer-cols__links {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.75rem clamp(3.75rem, 12vw, 7.5rem);
+  box-sizing: border-box;
+}
+
+/* Match .site-logo-crop height (header) so both marks read at the same size */
 .site-footer-logo-img {
-  height: 140px;
-  width: auto;
-  max-width: 100%;
   display: block;
+  height: clamp(47px, 8.2vw, 110px);
+  max-height: 110px;
+  width: auto;
+  max-width: min(100%, 620px);
   object-fit: contain;
   object-position: left top;
   margin-bottom: 0.25rem;
@@ -3103,10 +3138,11 @@ body {
 }
 
 .site-footer-address--under-cols {
-  grid-column: 1 / -1;
-  grid-row: 2;
-  align-self: start;
-  margin-top: 0;
+  margin: 0;
+  text-align: right;
+  max-width: min(100%, 26rem);
+  align-self: flex-end;
+  padding: 0;
 }
 
 .site-footer-col {
@@ -3144,11 +3180,12 @@ body {
   color: var(--color-white);
 }
 
-/* Sub-footer bar */
+/* Sub-footer bar (symmetric L/R padding so © line stays visually centered) */
 .site-footer-bar {
   background: rgba(0, 0, 0, 0.45);
-  padding: 0.65rem var(--page-padding) 0.65rem var(--page-edge-left);
+  padding: 0.65rem var(--page-padding);
   box-sizing: border-box;
+  text-align: center;
 }
 
 .site-footer-copy {
@@ -3161,33 +3198,40 @@ body {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.45);
-  margin: 0;
 }
 
 @media (max-width: 700px) {
   .site-footer-inner {
-    grid-template-columns: 1fr;
-    gap: 1.75rem;
-    padding: 2rem var(--page-padding) 1.75rem var(--page-edge-left);
-    justify-items: start;
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 1.5rem;
+    padding: 2rem var(--page-padding) 1.75rem var(--site-footer-pad-left);
+  }
+  .site-footer-cols {
+    flex: 1 1 auto;
+    margin-left: 0;
+    padding: 0;
+    transform: none;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .site-footer-cols__links {
+    justify-content: flex-start;
+    gap: 0.75rem clamp(2.25rem, 8vw, 4.25rem);
   }
   .site-footer-address--under-cols {
-    grid-column: 1 / -1;
-    margin-top: 0;
+    text-align: left;
+    max-width: 100%;
+    align-self: start;
   }
   .site-footer-brand {
     max-width: none;
-    grid-row: auto;
-    align-self: start;
-  }
-  .site-footer-logo-img {
-    height: 110px;
   }
   .site-footer-col {
     min-width: 0;
   }
   .site-footer-bar {
-    padding: 0.65rem var(--page-padding) 0.65rem var(--page-edge-left);
+    padding: 0.65rem var(--page-padding);
   }
 }
 
@@ -3206,7 +3250,7 @@ body {
 }
 
 
-/* ---------- Site banner: anchored bar containing logo + nav ---------- */
+/* ---------- Site banner: one continuous frosted bar (full width) ---------- */
 .site-banner {
   position: sticky;
   top: 0;
@@ -3216,10 +3260,10 @@ body {
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(12, 25, 41, 0.08);
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+  padding: 0;
 }
 
-/* ---------- Site header: logo top-left, nav pill top-right ---------- */
-/* Match .site-footer-inner max-width so header + footer logos share one vertical alignment */
+/* ---------- Site header: full-width bar; logo left inset matches footer; nav flush right ---------- */
 .site-header {
   position: relative;
   display: flex;
@@ -3227,16 +3271,15 @@ body {
   align-items: center;
   flex-wrap: wrap;
   width: 100%;
-  max-width: 72rem;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: none;
+  margin: 0;
   padding: 0.125rem var(--page-padding) 0.125rem var(--page-edge-left);
-  gap: 0.65rem;
+  gap: 0.65rem 1rem;
   min-width: 0;
   box-sizing: border-box;
 }
 
-/* Logo: top-left, no container/rectangle */
+/* Logo: top-left (only as wide as the mark — does not stretch, so footer column still lines up) */
 .site-logo-wrap {
   position: relative;
   display: flex;
@@ -3246,7 +3289,7 @@ body {
   background: transparent;
   box-shadow: none;
   min-width: 0;
-  flex: 1 1 auto;
+  flex: 0 1 auto;
 }
 
 .site-logo {
@@ -3258,9 +3301,9 @@ body {
 
 .site-logo-crop {
   display: block;
-  width: clamp(340px, 44vw, 720px);
-  height: clamp(54px, 9.5vw, 128px);
-  max-height: 128px;
+  width: clamp(292px, 38vw, 620px);
+  height: clamp(47px, 8.2vw, 110px);
+  max-height: 110px;
   overflow: hidden;
   flex-shrink: 1;
 }
@@ -3274,62 +3317,66 @@ body {
   object-position: left center;
 }
 
-/* Nav: compact pill in top-right (reference style) */
+/* Nav: flat text — no pill container; right edge follows --page-padding from viewport */
 .nav {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   flex-shrink: 0;
-  max-width: 100%;
   margin-left: auto;
-  padding: 0.45rem 0.9rem;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 9999px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  max-width: 100%;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .nav-links {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 0.2rem;
+  justify-content: flex-end;
+  gap: 0.1rem 0.15rem;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
 .nav-link {
-  padding: 0.4rem 0.75rem;
+  padding: 0.4rem 0.55rem;
   font-size: 0.82rem;
   font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: #0c1929;
   text-decoration: none;
-  border-radius: 9999px;
-  transition: color 0.2s ease, background 0.2s ease;
+  border-radius: 0;
+  transition: color 0.2s ease;
 }
 
 .nav-link:hover {
-  color: #0a1628;
-  background: rgba(12, 25, 41, 0.06);
+  color: var(--color-accent);
+  background: none;
 }
 
 .nav-link.active {
-  color: #0c1929;
-  background: rgba(12, 25, 41, 0.1);
+  color: var(--color-navy);
+  background: none;
+  font-weight: 700;
 }
 
 @media (max-width: 480px) {
   .site-logo-crop {
-    width: min(420px, 92vw);
-    height: 72px;
+    width: min(360px, 90vw);
+    height: 62px;
   }
-  .nav {
-    padding: 0.4rem 0.6rem;
+  .site-footer-logo-img {
+    max-width: min(360px, 90vw);
+    height: 62px;
+    max-height: 62px;
   }
   .nav-link {
-    padding: 0.32rem 0.5rem;
+    padding: 0.32rem 0.4rem;
     font-size: 0.72rem;
   }
 }
