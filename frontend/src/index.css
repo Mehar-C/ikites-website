@@ -1946,7 +1946,7 @@ body {
   position: relative;
   z-index: 1;
   padding: var(--space-section) 2rem;
-  max-width: 72rem;
+  max-width: min(94vw, 82rem);
   margin: 0 auto;
   text-align: center;
 }
@@ -1991,19 +1991,32 @@ body {
 
 .experts-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 1.5rem;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
+  row-gap: 1.625rem;
   text-align: left;
   align-items: stretch;
-  min-height: 26rem;
+  min-height: 0;
+}
+
+/* Row 1: four cards; row 2: three wider cards — balanced 12-column rows */
+.experts-grid .expert-card:nth-child(-n + 4) {
+  grid-column: span 3;
+}
+
+.experts-grid .expert-card:nth-child(n + 5) {
+  grid-column: span 4;
 }
 
 @media (max-width: 900px) {
   .experts-grid {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    min-height: 39rem;
+    min-height: 0;
+  }
+
+  .experts-grid .expert-card:nth-child(-n + 4),
+  .experts-grid .expert-card:nth-child(n + 5) {
+    grid-column: auto;
   }
 }
 
@@ -2037,20 +2050,21 @@ body {
 
 .expert-photo-cell {
   flex-shrink: 0;
-  width: 9rem;
-  min-width: 9rem;
+  width: 8.5rem;
+  min-width: 8.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.25rem;
+  padding: 1.125rem;
   background: #0d2244;
   border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+  align-self: stretch;
 }
 
 .expert-photo-wrap {
   position: relative;
-  width: 6.5rem;
-  height: 6.5rem;
+  width: 6rem;
+  height: 6rem;
   flex-shrink: 0;
   background: #0d2244;
   display: flex;
@@ -2058,7 +2072,7 @@ body {
   justify-content: center;
   border-radius: 50%;
   overflow: hidden;
-  border: 2px solid rgba(255, 255, 255, 0.12);
+  border: 0;
 }
 
 .expert-photo {
@@ -2096,18 +2110,21 @@ body {
 }
 
 .expert-info {
-  flex: 1;
-  padding: 1.25rem 1.5rem 1.5rem;
+  flex: 1 1 0;
+  align-self: flex-start;
+  padding: 1.125rem 1.25rem 1.25rem;
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
   min-width: 0;
 }
 
-.expert-info .expert-expand,
+.expert-info .expert-expand {
+  margin-top: 0.5rem;
+}
+
 .expert-info .expert-read-less {
-  margin-top: auto;
-  padding-top: 0.875rem;
+  margin-top: 0.75rem;
 }
 
 .expert-name {
@@ -2124,7 +2141,19 @@ body {
   color: var(--color-accent);
   font-weight: 500;
   margin: 0;
-  line-height: 1.4;
+  line-height: 1.45;
+}
+
+/* Four-across row: give the text rail a bit more room */
+.experts-grid .expert-card:nth-child(-n + 4) .expert-photo-cell {
+  width: 7.25rem;
+  min-width: 7.25rem;
+  padding: 1rem;
+}
+
+.experts-grid .expert-card:nth-child(-n + 4) .expert-photo-wrap {
+  width: 5.375rem;
+  height: 5.375rem;
 }
 
 .expert-role {
@@ -2135,12 +2164,19 @@ body {
 }
 
 .expert-bio {
-  font-size: 0.875rem;
+  font-size: 0.84375rem;
   color: var(--text-secondary);
   line-height: 1.65;
   margin: 0;
-  padding-top: 0.5rem;
-  max-width: 32em;
+  padding-top: 0.375rem;
+  max-width: none;
+}
+
+@media (min-width: 901px) {
+  .experts-grid .expert-card:nth-child(n + 5) .expert-bio {
+    font-size: 0.875rem;
+    line-height: 1.66;
+  }
 }
 
 .expert-read-less {
