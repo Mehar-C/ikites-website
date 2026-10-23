@@ -16,7 +16,7 @@ export default function Navbar() {
         <div className="site-logo-wrap">
           <NavLink to="/" className="site-logo" end onClick={handleLogoClick} aria-label="iKites Consulting – return to home">
             <span className="site-logo-crop">
-              <img src="/newlogolighthd.png" alt="" className="site-logo-img" />
+              <img src="/ikites_logo_Master.png" alt="" className="site-logo-img" />
             </span>
           </NavLink>
         </div>

@@ -61,7 +61,7 @@ export default function Article() {
       <footer className="site-footer">
         <div className="site-footer-inner">
           <div className="site-footer-brand">
-            <img src="/newlogodarkhd.png" alt="iKites Consulting" className="site-footer-logo-img" />
+            <img src="/ikites_logo_Master.png" alt="iKites Consulting" className="site-footer-logo-img" />
           </div>
           <div className="site-footer-cols">
             <div className="site-footer-cols__links">

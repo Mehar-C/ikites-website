@@ -1901,10 +1901,18 @@ body {
   height: 100%;
   object-fit: contain;
   object-position: center;
+  filter: grayscale(1);
+  opacity: 0.78;
+  transition: filter 0.25s ease, opacity 0.25s ease;
 }
 
 .collab-partner-img.collab-partner-img--loaded {
   display: block;
+}
+
+.collab-partner-item:hover .collab-partner-img {
+  filter: grayscale(0);
+  opacity: 1;
 }
 
 .collab-partner-fallback {
@@ -3146,13 +3154,14 @@ body {
 /* Match .site-logo-crop height (header) so both marks read at the same size */
 .site-footer-logo-img {
   display: block;
-  height: clamp(47px, 8.2vw, 110px);
-  max-height: 110px;
+  height: clamp(52px, 7.5vw, 88px);
+  max-height: 88px;
   width: auto;
-  max-width: min(100%, 620px);
+  max-width: min(100%, 420px);
   object-fit: contain;
   object-position: left top;
   margin-bottom: 0.25rem;
+  background: transparent;
 }
 
 .site-footer-tagline {
@@ -3337,18 +3346,19 @@ body {
 
 .site-logo-crop {
   display: block;
-  width: clamp(292px, 38vw, 620px);
-  height: clamp(47px, 8.2vw, 110px);
-  max-height: 110px;
+  width: auto;
+  height: clamp(52px, 7.5vw, 88px);
+  max-height: 88px;
   overflow: hidden;
   flex-shrink: 1;
+  background: transparent;
 }
 
 .site-logo-img {
   display: block;
   height: 100%;
   width: auto;
-  min-width: 100%;
+  max-width: min(100%, 420px);
   object-fit: contain;
   object-position: left center;
 }
@@ -3403,13 +3413,12 @@ body {
 
 @media (max-width: 480px) {
   .site-logo-crop {
-    width: min(360px, 90vw);
-    height: 62px;
+    height: 56px;
   }
   .site-footer-logo-img {
-    max-width: min(360px, 90vw);
-    height: 62px;
-    max-height: 62px;
+    max-width: min(280px, 90vw);
+    height: 56px;
+    max-height: 56px;
   }
   .nav-link {
     padding: 0.32rem 0.4rem;

@@ -213,9 +213,9 @@ export default function Home() {
         <h2 className="collab-title">The Collaborative</h2>
         <p className="collab-subtitle">Where human collaboration meets intelligent technology</p>
         <p className="collab-body">
-          The Collaborative brings together forward-thinking organizations and innovators shaping the future of work, digital transformation, and applied AI. Through shared expertise and intelligent tools, our collaborators help design solutions that bridge <strong>strategy, data, and technology</strong> — to solve complex challenges across industries.
+          We believe meaningful innovation is strengthened by collaboration. We bring together insights and expertise from technology innovators, industry specialists, and professional organizations to support digital transformation, applied AI, and industry-focused learning. Our collaborations have included expert-led discussions, technology demonstrations, practical case studies, and knowledge-sharing initiatives that connect emerging technologies with real-world industry challenges. We value the expertise and contributions of organizations that have been part of our journey.
         </p>
-        <p className="collab-partners-label">Organizations and innovators driving digital and AI transformation with us</p>
+        <p className="collab-partners-label">Organizations that have contributed expertise and insights to our initiatives.</p>
         <div className="collab-partners">
           {[
             { name: 'PROCORE', logo: '/logos/procore.svg', url: 'https://www.procore.com/en-ca' },
@@ -262,7 +262,7 @@ export default function Home() {
         <p className="experts-subtitle">Human intelligence driving AI-enabled transformation</p>
         <div className="experts-card">
           <p>
-            Our network includes <strong>Technologists</strong> | <strong>AI Strategists</strong> | <strong>Automation Specialists</strong> | <strong>Digital Transformation Leads</strong> and <strong>Educators</strong> who bring fresh thinking and applied experience to every initiative. Together, they connect human insight with intelligent systems, turning ideas into impact through digital integration, emerging technologies, and adaptive learning.
+            Our network includes <strong>Technologists</strong> | <strong>AI Strategists</strong> | <strong>Automation Specialists</strong> | <strong>Digital Transformation Leads</strong> and <strong>Educators</strong> who bring fresh thinking and applied experience to the initiatives they support. Together, they connect human insight with intelligent systems, turning ideas into impact through digital integration, emerging technologies, and adaptive learning.
           </p>
         </div>
         <div className="experts-grid">
@@ -385,7 +385,7 @@ export default function Home() {
       <footer className="site-footer">
         <div className="site-footer-inner">
           <div className="site-footer-brand">
-            <img src="/newlogodarkhd.png" alt="iKites Consulting" className="site-footer-logo-img" />
+            <img src="/ikites_logo_Master.png" alt="iKites Consulting" className="site-footer-logo-img" />
           </div>
           <div className="site-footer-cols">
             <div className="site-footer-cols__links">
