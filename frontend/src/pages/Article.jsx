@@ -5,6 +5,8 @@ import FromLegacy911ToNg911 from '../components/articleContent/FromLegacy911ToNg
 import AIAndProjectManagement from '../components/articleContent/AIAndProjectManagement'
 import GNSSEnhancementsSmartNav from '../components/articleContent/GNSSEnhancementsSmartNav'
 import ToolsReadyAreYourPeople from '../components/articleContent/ToolsReadyAreYourPeople'
+import AIAgentsGuardrails from '../components/articleContent/AIAgentsGuardrails'
+import AIConstructionPrevention from '../components/articleContent/AIConstructionPrevention'
 
 export default function Article() {
   const { slug } = useParams()
@@ -38,7 +40,11 @@ export default function Article() {
           {article.image && <img src={article.image} alt="" className="article-hero-image-img" />}
         </div>
         <div className="article-body">
-          {article.slug === 'tools-ready-are-your-people' ? (
+          {article.slug === 'ai-agents-guardrails-matter' ? (
+            <AIAgentsGuardrails />
+          ) : article.slug === 'ai-construction-prevent-problems' ? (
+            <AIConstructionPrevention />
+          ) : article.slug === 'tools-ready-are-your-people' ? (
             <ToolsReadyAreYourPeople />
           ) : article.slug === 'from-legacy-911-to-ng911' ? (
             <FromLegacy911ToNg911 />

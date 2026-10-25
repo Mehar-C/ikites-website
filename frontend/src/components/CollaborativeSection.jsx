@@ -12,12 +12,12 @@ const PARTNERS = [
 
 /** Easy-to-edit visual size balance (1 = default). */
 export const COLLAB_LOGO_SCALE = {
-  PROCORE: 1,
-  'EverTech XR': 0.98,
-  BUILDOTS: 0.82,
-  'Perspect Analytics': 0.92,
-  'Plan Academy': 0.88,
-  ContractorOS: 0.7,
+  PROCORE: 1.05,
+  'EverTech XR': 1.05,
+  BUILDOTS: 0.95,
+  'Perspect Analytics': 1.02,
+  'Plan Academy': 1,
+  ContractorOS: 0.92,
 }
 
 const TITLE = 'The Collaborative'

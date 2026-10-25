@@ -4,6 +4,28 @@
  */
 export const articles = [
   {
+    slug: 'ai-agents-guardrails-matter',
+    title: 'AI Agents at Work: Why the Guardrails Matter More Than the Model',
+    meta: 'AI & Digital Transformation, Insights',
+    excerpt:
+      'Air Canada’s chatbot invented a bereavement policy. A Chevy bot sold a Tahoe for $1. The lesson for workplace agents is the same: autonomy is easy — trust is the engineering…',
+    imageVariant: '2',
+    image: '/article-photos/ai%20driven%20pm.png',
+    tags: ['AI', 'Digital Transformation', 'Insights'],
+    body: null,
+  },
+  {
+    slug: 'ai-construction-prevent-problems',
+    title: 'How AI Is Helping Construction Teams Prevent Problems Before They Happen',
+    meta: 'Construction, AI, Technology, Insights',
+    excerpt:
+      'Most construction problems are born quietly and announced loudly. Here’s how AI moves discovery upstream — from idle crews to a line on a screen…',
+    imageVariant: '4',
+    image: '/article-photos/High-tech%20construction%20at%20dusk.png',
+    tags: ['Construction', 'AI', 'Technology', 'Insights'],
+    body: null,
+  },
+  {
     slug: 'tools-ready-are-your-people',
     title: 'The Tools Are Ready. Are Your People?',
     meta: 'Construction, Technology Adoption, PROMEX, Insights',
