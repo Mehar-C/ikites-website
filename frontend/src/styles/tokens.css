@@ -1,0 +1,124 @@
+/**
+ * iKites homepage design system — visual tokens only.
+ * Accent blue + blueprint grid unify light and dark sections.
+ * Motion: cubic-bezier(0.22, 1, 0.36, 1) · 0.6–0.9s
+ */
+:root {
+  /* Surfaces */
+  --bp-paper: #f2f5f9;
+  --bp-paper-elevated: #ffffff;
+  --bp-mist: #e6edf5;
+  --bp-navy: #0c1929;
+  --bp-navy-mid: #152d47;
+  --bp-navy-deep: #080f1a;
+  --bp-ink: #0f172a;
+  --bp-steel: #64748b;
+
+  /* Accent blue (shared light + dark) */
+  --bp-accent: #0ea5e9;
+  --bp-accent-soft: #38bdf8;
+  --bp-accent-deep: #0284c7;
+  --bp-accent-muted: rgba(14, 165, 233, 0.16);
+  --bp-glow: rgba(14, 165, 233, 0.45);
+  --bp-glow-soft: rgba(14, 165, 233, 0.22);
+
+  /* Blueprint grids */
+  --bp-grid-size: 40px;
+  --bp-grid-light: rgba(12, 25, 41, 0.055);
+  --bp-grid-dark: rgba(255, 255, 255, 0.055);
+  --bp-grid-accent-light: rgba(14, 165, 233, 0.07);
+  --bp-grid-accent-dark: rgba(14, 165, 233, 0.1);
+
+  /* Glass / nav */
+  --bp-glass: rgba(255, 255, 255, 0.78);
+  --bp-glass-strong: rgba(255, 255, 255, 0.88);
+  --bp-glass-hero: rgba(255, 255, 255, 0.48);
+  --bp-glass-border: rgba(12, 25, 41, 0.1);
+  --bp-glass-blur: 16px;
+  --bp-glass-shadow: 0 1px 0 rgba(255, 255, 255, 0.55), 0 8px 28px -12px rgba(12, 25, 41, 0.16);
+
+  /* Cards */
+  --card-border-light: rgba(12, 25, 41, 0.08);
+  --card-border-dark: rgba(255, 255, 255, 0.12);
+  --card-shadow: 0 4px 24px -6px rgba(15, 23, 42, 0.08), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --card-shadow-hover: 0 14px 40px -10px rgba(15, 23, 42, 0.14), 0 0 0 1px rgba(14, 165, 233, 0.1);
+
+  /* Motion — one easing everywhere */
+  --ease-motion: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-motion: 0.75s;
+  --duration-motion-fast: 0.6s;
+  --duration-motion-slow: 0.9s;
+  --nav-hide-duration: 0.6s;
+
+  /* Type scale */
+  --leading-tight: 1.15;
+  --leading-snug: 1.3;
+  --leading-body: 1.65;
+  --tracking-display: -0.035em;
+  --tracking-label: 0.14em;
+  --text-display: clamp(2.25rem, 4.5vw, 3.35rem);
+  --text-title: clamp(1.75rem, 3.2vw, 2.5rem);
+  --text-body: 1rem;
+  --text-small: 0.9rem;
+
+  /* Spacing */
+  --space-section: clamp(3rem, 7vw, 5.5rem);
+  --space-section-tight: clamp(2.25rem, 5vw, 3.5rem);
+  --page-padding: clamp(1rem, 4vw, 2rem);
+  --page-edge-left: max(0.5rem, min(0.9rem, 2vw), env(safe-area-inset-left, 0px));
+  --site-footer-pad-left: max(0.2rem, calc(var(--page-edge-left) - 0.45rem));
+
+  /* Legacy aliases (existing CSS) */
+  --color-black: #0a0a0a;
+  --color-navy: var(--bp-navy);
+  --color-navy-mid: var(--bp-navy-mid);
+  --color-dark-blue: #1d4ed8;
+  --color-dark-blue-light: #3b82f6;
+  --color-white: #ffffff;
+  --color-gray-100: #f1f5f9;
+  --color-gray-200: #e2e8f0;
+  --color-gray-400: var(--bp-steel);
+  --color-gray-500: #475569;
+  --color-gray-600: #334155;
+  --color-accent: var(--bp-accent);
+  --bg-page: var(--bp-paper);
+  --bg-card: var(--bp-paper-elevated);
+  --text-primary: var(--bp-ink);
+  --text-secondary: var(--color-gray-500);
+  --border-light: var(--bp-mist);
+
+  --font-display: 'Outfit', system-ui, sans-serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+
+  --radius-xl: 20px;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --shadow-elevated: var(--card-shadow);
+  --shadow-hover: var(--card-shadow-hover);
+  --shadow-glow: 0 0 40px -8px var(--bp-glow);
+
+  /* Back-compat for earlier token names */
+  --ease-out-expo: var(--ease-motion);
+  --ease-out-quart: var(--ease-motion);
+  --duration-fast: var(--duration-motion-fast);
+  --duration-med: var(--duration-motion);
+  --duration-slow: var(--duration-motion-slow);
+  --bp-grid-color: var(--bp-grid-light);
+  --bp-grid-accent: var(--bp-grid-accent-light);
+  --bp-cyan: var(--bp-accent);
+  --bp-signal: var(--bp-accent);
+  --bp-signal-muted: var(--bp-accent-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-motion: 0.01ms;
+    --duration-motion-fast: 0.01ms;
+    --duration-motion-slow: 0.01ms;
+    --nav-hide-duration: 0.01ms;
+    --duration-fast: 0.01ms;
+    --duration-med: 0.01ms;
+    --duration-slow: 0.01ms;
+  }
+}

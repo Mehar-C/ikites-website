@@ -1,10 +1,13 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import ScrollReveal from '../components/ScrollReveal'
 import FloatingShapes from '../components/FloatingShapes'
 import NoiseOverlay from '../components/NoiseOverlay'
 import IntroSequence from '../components/IntroSequence'
 import FloatingOrbsBackground from '../components/FloatingOrbsBackground'
+import WhatWeDoStack from '../components/WhatWeDoStack'
+import ExpertsCarousel from '../components/ExpertsCarousel'
+import CollaborativeSection from '../components/CollaborativeSection'
 import { articles } from '../data/articles'
 
 const INTRO_SCROLL_RATIO = 0.85
@@ -17,11 +20,17 @@ const EXPERTS = [
   { initials: 'SS', name: 'Stan Shantz', credentials: 'Co-Founder & Vice President', role: 'Predictive Technology Expert · Perspect Analytics Inc.', image: '/experts/Stan%20Shantz.jpg', bio: 'Co-Founder and Vice President at Perspect Analytics Inc. and EverTech XR. Expert in predictive technologies and data-driven asset management, with experience across MRO, AM, FM, and IM. Drives mixed reality and analytics solutions for smarter asset and operations management.' },
   { initials: 'TS', name: 'Tom Stephenson', credentials: 'MBA, CM-LEAN, PMP', role: 'Professor & Construction Expert · George Brown College', image: '/experts/Tom%20Stephenson.jpg', bio: 'Professor and construction expert at George Brown College. Experienced lecturer, consultant, and author with contributions to BILD, OHBA, CHBA, and the Mechanical Contractors\' Association of Toronto. Recognized for teaching and industry engagement in construction management and lean practices.' },
   { initials: 'VC', name: 'Vikram Chauhan', credentials: 'P.Eng, PGMP, PMP, PMI-RMP', role: 'Senior Project Manager · Powell Inc', image: '/experts/Vikram%20Chauhan.jpg', bio: 'Naval veteran and Senior Project Manager with an Electrical Engineering degree and MBA from the University of Alberta. Over 15 years of project management experience in manufacturing and defence, including monitoring and execution of infrastructure projects exceeding US $400M. Expertise in technical management, supply chain and logistics, project finances, and repair, maintenance, and refurbishment of electrical equipment.' },
+  { initials: 'MK', name: 'Mostafa Khorshidi', credentials: '', role: 'Project Controls · iKites', image: '/experts/Mostafa%20Khorshidi.jpg', bio: 'Mo Khorshidi is a project management and project controls professional with over 14 years of experience in planning, scheduling, forecasting and project controls across the energy, nuclear, engineering and financial services sectors. With expertise in Primavera P6, Microsoft Project and Power BI, he focuses on practical applications of technology to improve project scheduling, forecasting and decision-making.' },
+  { initials: 'CS', name: 'Corey Shelson', credentials: 'MBA', role: 'Co-Founder · Appello', image: '/experts/Corey%20Shelson.jpg', bio: 'Corey Shelson is the co-founder of Appello, a construction management software platform serving construction and trade professionals across Canada and the U.S., where he leads applied AI initiatives. He works closely with ICI trade contractors, translating real-world challenges into practical digital solutions and AI workflows. His diverse background includes service as a Canadian Armed Forces combat engineer officer and engineering management in the nuclear sector. Corey holds an engineering degree from the Royal Military College of Canada and an MBA from Ivey Business School. He is also a frequent speaker on AI in construction at industry conferences and association events.' },
+  { initials: 'JT', name: 'Josh Turner', credentials: 'PMP', role: 'Co-Founder · ContractorOS', image: '/experts/Josh%20Turner.png', bio: 'Josh Turner is the co-founder of ContractorOS, where he helps contractors apply AI to everyday construction work. He brings more than 10 years of construction experience across New Zealand and Canada, from site engineering through to project management. Through ContractorOS, he teaches practical AI workflows and works with construction teams to apply them to their own projects.' },
 ]
 
 export default function Home() {
   const [scrollProgress, setScrollProgress] = useState(0)
-  const [expandedExpert, setExpandedExpert] = useState(null)
+  const [heroEntered, setHeroEntered] = useState(false)
+  const heroVizRef = useRef(null)
+  const heroCtaRef = useRef(null)
+  const parallaxRef = useRef({ x: 0, y: 0, rx: 0, ry: 0 })
 
   useEffect(() => {
     const introHeight = () => window.innerHeight * INTRO_SCROLL_RATIO
@@ -34,9 +43,109 @@ export default function Home() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  useEffect(() => {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduceMotion) {
+      setHeroEntered(true)
+      return
+    }
+    if (scrollProgress >= 0.55) setHeroEntered(true)
+  }, [scrollProgress])
+
+  useEffect(() => {
+    const el = heroVizRef.current
+    if (!el) return
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const isCoarse = window.matchMedia('(pointer: coarse)').matches
+    if (reduceMotion || isCoarse || window.innerWidth <= 900) return
+
+    let raf = 0
+    const max = 12
+    const maxTilt = 7
+
+    const onMove = (e) => {
+      const rect = el.getBoundingClientRect()
+      const nx = ((e.clientX - rect.left) / rect.width - 0.5) * 2
+      const ny = ((e.clientY - rect.top) / rect.height - 0.5) * 2
+      const cx = Math.max(-1, Math.min(1, nx))
+      const cy = Math.max(-1, Math.min(1, ny))
+      parallaxRef.current = {
+        x: cx * max,
+        y: cy * max,
+        ry: cx * maxTilt,
+        rx: -cy * maxTilt,
+      }
+      if (!raf) {
+        raf = requestAnimationFrame(() => {
+          raf = 0
+          const { x, y, rx, ry } = parallaxRef.current
+          el.style.setProperty('--parallax-x', `${x.toFixed(2)}px`)
+          el.style.setProperty('--parallax-y', `${y.toFixed(2)}px`)
+          el.style.setProperty('--tilt-x', `${rx.toFixed(2)}deg`)
+          el.style.setProperty('--tilt-y', `${ry.toFixed(2)}deg`)
+        })
+      }
+    }
+
+    const onLeave = () => {
+      el.style.setProperty('--parallax-x', '0px')
+      el.style.setProperty('--parallax-y', '0px')
+      el.style.setProperty('--tilt-x', '0deg')
+      el.style.setProperty('--tilt-y', '0deg')
+    }
+
+    el.addEventListener('pointermove', onMove)
+    el.addEventListener('pointerleave', onLeave)
+    return () => {
+      el.removeEventListener('pointermove', onMove)
+      el.removeEventListener('pointerleave', onLeave)
+      if (raf) cancelAnimationFrame(raf)
+    }
+  }, [])
+
+  useEffect(() => {
+    const btn = heroCtaRef.current
+    if (!btn) return
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const isCoarse = window.matchMedia('(pointer: coarse)').matches
+    if (reduceMotion || isCoarse) return undefined
+
+    let raf = 0
+    const strength = 0.28
+
+    const onMove = (e) => {
+      const rect = btn.getBoundingClientRect()
+      const dx = e.clientX - (rect.left + rect.width / 2)
+      const dy = e.clientY - (rect.top + rect.height / 2)
+      if (!raf) {
+        raf = requestAnimationFrame(() => {
+          raf = 0
+          btn.style.setProperty('--mag-x', `${(dx * strength).toFixed(2)}px`)
+          btn.style.setProperty('--mag-y', `${(dy * strength).toFixed(2)}px`)
+        })
+      }
+    }
+
+    const onLeave = () => {
+      btn.style.setProperty('--mag-x', '0px')
+      btn.style.setProperty('--mag-y', '0px')
+    }
+
+    btn.addEventListener('pointermove', onMove)
+    btn.addEventListener('pointerleave', onLeave)
+    return () => {
+      btn.removeEventListener('pointermove', onMove)
+      btn.removeEventListener('pointerleave', onLeave)
+      if (raf) cancelAnimationFrame(raf)
+    }
+  }, [])
+
   const handleSkipIntro = () => {
     const target = window.innerHeight * INTRO_SCROLL_RATIO
     window.scrollTo({ top: target, behavior: 'smooth' })
+    setHeroEntered(true)
   }
 
   return (
@@ -47,24 +156,37 @@ export default function Home() {
       <FloatingOrbsBackground />
       <div className="landing-grid" aria-hidden="true" />
 
-      <main className="landing-main">
+      <main className={`landing-main section-surface--dark handoff-to-light${heroEntered ? ' landing-main--entered' : ''}`}>
+        <div className="hero-blueprint-grid" aria-hidden="true" />
         <FloatingShapes />
         <NoiseOverlay />
         <div className="hero-inner">
           <div className="hero-content">
-            <p className="hero-mission-id">iKites Consulting // ADVISORY & CONSULTING</p>
+            <p className="hero-mission-id hero-enter hero-enter--1">iKites Consulting // ADVISORY & CONSULTING</p>
             <h1 className="hero-headline">
-              Public safety tech, AI, and Digital transformation — <span className="hero-headline-accent">led by experts.</span>
+              <span className="hero-headline__line hero-enter hero-enter--2a">Public safety tech, AI, and Digital transformation — </span>
+              <span className="hero-headline__line hero-headline-accent hero-enter hero-enter--2b">led by experts.</span>
             </h1>
-            <p className="hero-subheadline">
+            <p className="hero-subheadline hero-enter hero-enter--3">
               We bring together domain specialists to deliver measurable impact for governments, nonprofits, and industry through smart project management and emerging technology.
             </p>
-            <a href="#what-we-do" className="hero-cta">Explore capabilities<span className="cta-shine" aria-hidden="true" /></a>
+            <a
+              href="#what-we-do"
+              ref={heroCtaRef}
+              className="hero-cta hero-cta--magnetic hero-enter hero-enter--4"
+            >
+              Explore capabilities
+              <span className="cta-shine" aria-hidden="true" />
+              <span className="hero-cta__fill" aria-hidden="true" />
+            </a>
           </div>
-          <div className="hero-viz-wrap">
+          <div className="hero-viz-wrap hero-enter hero-enter--viz" ref={heroVizRef}>
+            <div className="hero-viz-glow" aria-hidden="true" />
             <div className="hero-viz-inner">
-              <img src="/chat.png" alt="" className="hero-viz-img" aria-hidden="true" />
-              <span className="hero-viz-signal" aria-hidden="true" />
+              <div className="hero-viz-float">
+                <img src="/chat.png" alt="" className="hero-viz-img" aria-hidden="true" />
+                <span className="hero-viz-signal" aria-hidden="true" />
+              </div>
             </div>
           </div>
         </div>
@@ -74,100 +196,13 @@ export default function Home() {
         </a>
       </main>
 
-      <ScrollReveal>
-        <section className="what-we-do" id="what-we-do">
-          <h2 className="what-we-do-title">What We Do</h2>
-          <div className="what-we-do-grid">
-          <article className="what-we-do-card">
-            <div className="what-we-do-card-icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="24" cy="24" r="18" stroke="currentColor" strokeWidth="1.5" opacity="0.5" />
-                <circle cx="14" cy="18" r="4" stroke="currentColor" strokeWidth="1.5" />
-                <circle cx="34" cy="18" r="4" stroke="currentColor" strokeWidth="1.5" />
-                <circle cx="24" cy="32" r="4" stroke="currentColor" strokeWidth="1.5" />
-                <path d="M18 20l4 4M30 20l-4 4M20 34l4-6 4 6" stroke="currentColor" strokeWidth="1.2" opacity="0.8" />
-              </svg>
-            </div>
-            <h3 className="what-we-do-card-title">AI & Digital Transformation</h3>
-            <p className="what-we-do-card-desc">
-              Helping organizations leverage artificial intelligence to drive efficiency, automate processes, and enable smarter decision-making.
-            </p>
-            <ul className="what-we-do-list">
-              <li>Current-state assessment and gap analysis</li>
-              <li>AI workflow design and copilot development</li>
-              <li>Secure data governance and change enablement</li>
-            </ul>
-          </article>
+      <WhatWeDoStack />
 
-          <article className="what-we-do-card">
-            <div className="what-we-do-card-icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M16 22v-2a8 8 0 0116 0v2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                <path d="M16 22h4v10a4 4 0 008 0V22h4a2 2 0 012 2v6a2 2 0 01-2 2H16a2 2 0 01-2-2v-6a2 2 0 012-2z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </div>
-            <h3 className="what-we-do-card-title">NG911 Turnkey Support for PSAPs</h3>
-            <p className="what-we-do-card-desc">
-              Delivering complete Next Generation 911 solutions for Public Safety Answering Points to ensure seamless, reliable emergency response.
-            </p>
-            <ul className="what-we-do-list">
-              <li>End-to-end NG911 system implementation</li>
-              <li>Emergency call routing and performance optimization</li>
-              <li>Multi-media incident handling and data integration</li>
-              <li>Compliance management and certification support</li>
-            </ul>
-          </article>
-
-          <article className="what-we-do-card">
-            <div className="what-we-do-card-icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="6" y="10" width="14" height="10" rx="1" stroke="currentColor" strokeWidth="1.5" />
-                <rect x="28" y="10" width="14" height="10" rx="1" stroke="currentColor" strokeWidth="1.5" />
-                <rect x="6" y="28" width="14" height="10" rx="1" stroke="currentColor" strokeWidth="1.5" />
-                <rect x="28" y="28" width="14" height="10" rx="1" stroke="currentColor" strokeWidth="1.5" />
-                <path d="M20 15h8M20 33h8" stroke="currentColor" strokeWidth="1.2" opacity="0.6" />
-              </svg>
-            </div>
-            <h3 className="what-we-do-card-title">Real-Time Operations Centre (RTOC)</h3>
-            <p className="what-we-do-card-desc">
-              Providing comprehensive monitoring and management solutions for real-time operational visibility and asset optimization.
-            </p>
-            <ul className="what-we-do-list">
-              <li>Real-time dashboard and visualization development</li>
-              <li>IoT-based asset tracking and data integration</li>
-              <li>Predictive maintenance and scheduling models</li>
-              <li>Performance monitoring and automated alerting systems</li>
-            </ul>
-          </article>
-
-          <article className="what-we-do-card">
-            <div className="what-we-do-card-icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M24 12l-14 7v8l14 7 14-7v-8L24 12z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-                <path d="M10 27l14 7 14-7M24 19v15" stroke="currentColor" strokeWidth="1.2" opacity="0.7" />
-                <path d="M20 12l4-4 4 4-4 4-4-4z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-              </svg>
-            </div>
-            <h3 className="what-we-do-card-title">Technology Adoption</h3>
-            <p className="what-we-do-card-desc">
-              Empowering organizations and teams to confidently adopt emerging technologies and integrate them into daily operations — across public service, healthcare, education, infrastructure, and enterprise sectors.
-            </p>
-            <ul className="what-we-do-list">
-              <li>AI literacy and applied use-case labs</li>
-              <li>Data-driven decision-making and digital collaboration tools</li>
-              <li>Leadership and change enablement for technology adoption</li>
-              <li>Customized learning pathways aligned to roles and industry needs</li>
-            </ul>
-          </article>
-          </div>
-        </section>
-      </ScrollReveal>
-
-      <ScrollReveal>
+      <ScrollReveal variant="left">
       <section className="who-we-serve">
-        <h2 className="section-heading">We partner with organizations committed to meaningful transformation</h2>
+        <h2 className="section-heading motion-title">We partner with organizations committed to meaningful transformation</h2>
         <div className="who-we-serve-grid">
-          <article className="serve-card">
+          <article className="serve-card stagger-item motion-card" data-glow>
             <div className="serve-card-image-wrap">
               <img src="/article-photos/public-sector-emergency-services.png" alt="" className="serve-card-image" />
             </div>
@@ -179,7 +214,7 @@ export default function Home() {
               <p className="serve-card-subtitle">Governments, PSAPs, utilities, and municipalities.</p>
             </div>
           </article>
-          <article className="serve-card">
+          <article className="serve-card stagger-item motion-card" data-glow>
             <div className="serve-card-image-wrap">
               <img src="/article-photos/associations-nonprofits.png" alt="" className="serve-card-image" />
             </div>
@@ -191,7 +226,7 @@ export default function Home() {
               <p className="serve-card-subtitle">Workforce, construction, and healthcare partners.</p>
             </div>
           </article>
-          <article className="serve-card">
+          <article className="serve-card stagger-item motion-card" data-glow>
             <div className="serve-card-image-wrap">
               <img src="/article-photos/enterprises-smes.png" alt="" className="serve-card-image" />
             </div>
@@ -207,95 +242,23 @@ export default function Home() {
       </section>
       </ScrollReveal>
 
-      <ScrollReveal>
-      <section className="the-collaborative">
-        <p className="collab-intro">We shape smarter systems through expert collaboration</p>
-        <h2 className="collab-title">The Collaborative</h2>
-        <p className="collab-subtitle">Where human collaboration meets intelligent technology</p>
-        <p className="collab-body">
-          We believe meaningful innovation is strengthened by collaboration. We bring together insights and expertise from technology innovators, industry specialists, and professional organizations to support digital transformation, applied AI, and industry-focused learning. Our collaborations have included expert-led discussions, technology demonstrations, practical case studies, and knowledge-sharing initiatives that connect emerging technologies with real-world industry challenges. We value the expertise and contributions of organizations that have been part of our journey.
-        </p>
-        <p className="collab-partners-label">Organizations that have contributed expertise and insights to our initiatives.</p>
-        <div className="collab-partners">
-          {[
-            { name: 'PROCORE', logo: '/logos/procore.svg', url: 'https://www.procore.com/en-ca' },
-            { name: 'EverTech XR', logo: '/logos/Evertech%20XR.png', url: 'https://evertechxr.com/' },
-            { name: 'BUILDOTS', logo: '/logos/buildots.png', url: 'https://buildots.com/', smallLogo: true },
-            { name: 'Perspect Analytics', logo: '/logos/perspect%20analytics.png', url: 'https://perspectanalytics.com/' },
-            { name: 'Plan Academy', logo: '/logos/plan.png', url: 'https://www.planacademy.com/', smallerLogo: true },
-          ].map((partner) => (
-            <a
-              key={partner.name}
-              href={partner.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="collab-partner-item"
-            >
-              <span className={`collab-partner-logo-wrap${partner.smallLogo ? ' collab-partner-logo-wrap--small' : ''}${partner.smallerLogo ? ' collab-partner-logo-wrap--smaller' : ''}`}>
-                <img
-                  src={partner.logo}
-                  alt=""
-                  className="collab-partner-img"
-                  onLoad={(e) => {
-                    e.target.classList.add('collab-partner-img--loaded')
-                    e.target.nextElementSibling?.classList.remove('collab-partner-fallback--show')
-                  }}
-                  onError={(e) => {
-                    e.target.style.display = 'none'
-                    e.target.nextElementSibling?.classList.add('collab-partner-fallback--show')
-                  }}
-                />
-                <span className="collab-partner-fallback collab-partner-fallback--show">{partner.name}</span>
-              </span>
-            </a>
-          ))}
-        </div>
-        <div className="collab-quote-card">
-          <p>The Collaborative comes to life through <strong>Experts</strong> who bridge human expertise and AI-driven intelligence.</p>
-        </div>
-      </section>
-      </ScrollReveal>
+      <CollaborativeSection />
 
       <ScrollReveal>
-      <section className="the-experts">
-        <h2 className="experts-title">The Experts</h2>
-        <p className="experts-subtitle">Human intelligence driving AI-enabled transformation</p>
-        <div className="experts-card">
+      <section className="the-experts handoff-to-dark" id="the-experts">
+        <h2 className="experts-title motion-title">The Experts</h2>
+        <p className="experts-subtitle motion-title">Human intelligence driving AI-enabled transformation</p>
+        <div className="experts-card stagger-item">
           <p>
             Our network includes <strong>Technologists</strong> | <strong>AI Strategists</strong> | <strong>Automation Specialists</strong> | <strong>Digital Transformation Leads</strong> and <strong>Educators</strong> who bring fresh thinking and applied experience to the initiatives they support. Together, they connect human insight with intelligent systems, turning ideas into impact through digital integration, emerging technologies, and adaptive learning.
           </p>
         </div>
-        <div className="experts-grid">
-          {EXPERTS.map((expert) => (
-            <article key={expert.initials} className="expert-card" aria-expanded={expandedExpert === expert.initials}>
-              <div className="expert-photo-cell">
-              <div className="expert-photo-wrap">
-                {expert.image ? (
-                  <img src={expert.image} alt="" className="expert-photo" onError={(e) => { e.target.style.display = 'none'; e.target.nextElementSibling?.classList.remove('expert-initials--fallback'); }} />
-                ) : null}
-                <div className={`expert-initials ${expert.image ? 'expert-initials--fallback' : 'expert-initials--visible'}`} aria-hidden="true">{expert.initials}</div>
-              </div>
-              </div>
-              <div className="expert-info">
-                <h3 className="expert-name">{expert.name.toUpperCase()}</h3>
-                <p className="expert-credentials">{expert.credentials}</p>
-                {expandedExpert === expert.initials ? (
-                  <>
-                    <p className="expert-bio">{expert.bio}</p>
-                    <button type="button" className="expert-read-less" onClick={() => setExpandedExpert(null)} aria-label={`Show less about ${expert.name}`}>Read Less ↓</button>
-                  </>
-                ) : (
-                  <button type="button" className="expert-expand" onClick={() => setExpandedExpert(expert.initials)} aria-label={`More about ${expert.name}`} aria-expanded="false">+</button>
-                )}
-              </div>
-            </article>
-          ))}
-        </div>
+        <ExpertsCarousel experts={EXPERTS} />
       </section>
       </ScrollReveal>
 
       <ScrollReveal delay={100}>
-      <section className="our-approach-ribbon">
+      <section className="our-approach-ribbon section-surface--dark handoff-to-light">
         <div className="approach-ribbon-inner">
           <div className="approach-ribbon-visual">
             <div className="approach-ribbon-card approach-ribbon-card--orb" aria-hidden="true">
@@ -326,7 +289,6 @@ export default function Home() {
                   <path d="M 128 58 Q 100 100 128 142" stroke="#0ea5e9" strokeWidth="0.9" fill="none" opacity="0.5" />
                   <path d="M 192 58 Q 220 100 192 142" stroke="#0ea5e9" strokeWidth="0.9" fill="none" opacity="0.5" />
                 </g>
-                {/* Moving dash – travels along the main orbit */}
                 <ellipse className="orb-orbit-dash" cx={160} cy={100} rx={72} ry={24} stroke="#7dd3fc" strokeWidth="3" fill="none" strokeDasharray="12 999" strokeLinecap="round" />
                 <circle className="orb-core" cx={160} cy={100} r={22} fill="url(#orbCore)" filter="url(#orbGlow)" />
                 <circle className="orb-core-ring" cx={160} cy={100} r={22} stroke="#7dd3fc" strokeWidth="1" fill="none" opacity="0.6" />
@@ -354,14 +316,14 @@ export default function Home() {
       </ScrollReveal>
 
       <ScrollReveal>
-      <section className="blog-posts-section" aria-labelledby="blog-posts-heading">
+      <section className="blog-posts-section handoff-to-dark" aria-labelledby="blog-posts-heading">
         <div className="blog-posts-header">
-          <h2 id="blog-posts-heading" className="blog-posts-title">Recent Blog Posts</h2>
+          <h2 id="blog-posts-heading" className="blog-posts-title motion-title">Recent Blog Posts</h2>
           <Link to="/insights" className="blog-posts-link">See all blog posts &rarr;</Link>
         </div>
         <div className="blog-posts-grid">
           {articles.slice(0, 3).map((post) => (
-            <Link key={post.slug} to={`/insights/${post.slug}`} className="blog-post-card">
+            <Link key={post.slug} to={`/insights/${post.slug}`} className="blog-post-card stagger-item motion-card" data-glow>
               <div className={`blog-post-image blog-post-image--${post.imageVariant}`} aria-hidden="true">
                 {post.image && <img src={post.image} alt="" className="blog-post-image-img" />}
               </div>
@@ -374,15 +336,15 @@ export default function Home() {
       </section>
       </ScrollReveal>
 
-      <ScrollReveal>
-      <section className="cta-section">
-        <h2 className="cta-heading">Interested in joining our network of collaborators?</h2>
-        <p className="cta-text">The Collaborative continues to expand — connecting technology innovators, educators, and industry leaders to create smarter, more adaptive systems.</p>
-        <Link to="/contact" className="cta-button">Connect With Us</Link>
+      <ScrollReveal variant="scale">
+      <section className="cta-section section-surface--dark">
+        <h2 className="cta-heading motion-title">Interested in joining our network of collaborators?</h2>
+        <p className="cta-text stagger-item">The Collaborative continues to expand — connecting technology innovators, educators, and industry leaders to create smarter, more adaptive systems.</p>
+        <Link to="/contact" className="cta-button stagger-item">Connect With Us</Link>
       </section>
       </ScrollReveal>
 
-      <footer className="site-footer">
+      <footer className="site-footer section-surface--dark">
         <div className="site-footer-inner">
           <div className="site-footer-brand">
             <img src="/ikites_logo_Master.png" alt="iKites Consulting" className="site-footer-logo-img" />
