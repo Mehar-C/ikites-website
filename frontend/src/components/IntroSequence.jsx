@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-const TAGLINE = '[TECH & AI — LED BY EXPERTS]'
+const TAGLINE = 'TECH & AI — LED BY EXPERTS'
 
 /** Matches design-system ease ≈ cubic-bezier(0.22, 1, 0.36, 1) */
 function easeMotion(t) {
