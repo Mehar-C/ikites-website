@@ -2343,7 +2343,7 @@ body {
 .the-collaborative {
   position: relative;
   z-index: 1;
-  padding: var(--space-section) 2rem;
+  padding: var(--space-section) 2rem var(--space-section-tight);
   max-width: 72rem;
   margin: 0 auto;
   text-align: center;
@@ -2648,7 +2648,7 @@ body {
 .the-experts {
   position: relative;
   z-index: 1;
-  padding: var(--space-section) 2rem;
+  padding: clamp(1.25rem, 3vw, 2rem) 2rem var(--space-section);
   max-width: min(94vw, 82rem);
   margin: 0 auto;
   text-align: center;
