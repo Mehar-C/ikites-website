@@ -10,7 +10,7 @@ export const articles = [
     excerpt:
       'Air Canada’s chatbot invented a bereavement policy. A Chevy bot sold a Tahoe for $1. The lesson for workplace agents is the same: autonomy is easy — trust is the engineering…',
     imageVariant: '2',
-    image: '/article-photos/ai%20driven%20pm.png',
+    image: '/article-photos/article2.png',
     tags: ['AI', 'Digital Transformation', 'Insights'],
     body: null,
   },
@@ -21,7 +21,7 @@ export const articles = [
     excerpt:
       'Most construction problems are born quietly and announced loudly. Here’s how AI moves discovery upstream — from idle crews to a line on a screen…',
     imageVariant: '4',
-    image: '/article-photos/High-tech%20construction%20at%20dusk.png',
+    image: '/article-photos/article%201.png',
     tags: ['Construction', 'AI', 'Technology', 'Insights'],
     body: null,
   },
