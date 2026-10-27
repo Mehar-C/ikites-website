@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { getGsap, prefersReducedMotion } from '../lib/gsapSetup'
 
 const DESKTOP_VISIBLE = 4
@@ -119,9 +119,13 @@ function ExpertFlipCard({ expert, flipped, onToggle }) {
 
 export default function ExpertsGrid({ experts }) {
   const rootRef = useRef(null)
+  const trackRef = useRef(null)
   const animatedRef = useRef(false)
+  const transitioningRef = useRef(false)
+  const slideDirRef = useRef(1)
   const [flippedId, setFlippedId] = useState(null)
-  const [index, setIndex] = useState(0)
+  const [page, setPage] = useState(0)
+  const [busy, setBusy] = useState(false)
   const [visibleCount, setVisibleCount] = useState(DESKTOP_VISIBLE)
 
   useEffect(() => {
@@ -137,25 +141,79 @@ export default function ExpertsGrid({ experts }) {
     return () => window.removeEventListener('resize', update)
   }, [])
 
-  const maxIndex = Math.max(0, experts.length - visibleCount)
+  const pageCount = Math.max(1, Math.ceil(experts.length / visibleCount))
+  const maxPage = pageCount - 1
 
   useEffect(() => {
-    setIndex((i) => Math.min(i, maxIndex))
-  }, [maxIndex])
+    setPage((p) => Math.min(p, maxPage))
+  }, [maxPage])
 
-  const pageCount = maxIndex + 1
-  const canPrev = index > 0
-  const canNext = index < maxIndex
+  const start = page * visibleCount
+  const canPrev = page > 0 && !busy
+  const canNext = page < maxPage && !busy
 
   const visible = useMemo(
-    () => experts.slice(index, index + visibleCount),
-    [experts, index, visibleCount],
+    () => experts.slice(start, start + visibleCount),
+    [experts, start, visibleCount],
   )
 
-  const go = (dir) => {
+  const changePage = (nextPage) => {
+    if (nextPage === page || nextPage < 0 || nextPage > maxPage || transitioningRef.current) return
+
     setFlippedId(null)
-    setIndex((i) => Math.max(0, Math.min(maxIndex, i + dir)))
+    slideDirRef.current = nextPage > page ? 1 : -1
+
+    if (prefersReducedMotion()) {
+      setPage(nextPage)
+      return
+    }
+
+    const track = trackRef.current
+    if (!track) {
+      setPage(nextPage)
+      return
+    }
+
+    transitioningRef.current = true
+    setBusy(true)
+    const { gsap } = getGsap()
+    gsap.killTweensOf(track)
+    gsap.to(track, {
+      opacity: 0,
+      x: slideDirRef.current * -32,
+      duration: 0.28,
+      ease: 'power2.in',
+      onComplete: () => setPage(nextPage),
+    })
   }
+
+  useLayoutEffect(() => {
+    if (!transitioningRef.current) return undefined
+    const track = trackRef.current
+    if (!track) {
+      transitioningRef.current = false
+      setBusy(false)
+      return undefined
+    }
+
+    const { gsap } = getGsap()
+    gsap.killTweensOf(track)
+    gsap.fromTo(
+      track,
+      { opacity: 0, x: slideDirRef.current * 36 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.4,
+        ease: 'power2.out',
+        onComplete: () => {
+          transitioningRef.current = false
+          setBusy(false)
+        },
+      },
+    )
+    return undefined
+  }, [page])
 
   useEffect(() => {
     const root = rootRef.current
@@ -211,6 +269,7 @@ export default function ExpertsGrid({ experts }) {
     >
       <div className="experts-carousel__viewport">
         <div
+          ref={trackRef}
           className="experts-carousel__track"
           style={{ '--experts-visible': visibleCount }}
         >
@@ -232,7 +291,7 @@ export default function ExpertsGrid({ experts }) {
         <button
           type="button"
           className="experts-carousel__btn"
-          onClick={() => go(-1)}
+          onClick={() => changePage(page - 1)}
           disabled={!canPrev}
           aria-label="Previous experts"
         >
@@ -241,25 +300,27 @@ export default function ExpertsGrid({ experts }) {
           </svg>
         </button>
         <div className="experts-carousel__dots" role="tablist" aria-label="Expert pages">
-          {Array.from({ length: pageCount }, (_, i) => (
-            <button
-              key={i}
-              type="button"
-              role="tab"
-              aria-selected={i === index}
-              aria-label={`Show experts ${i + 1} to ${Math.min(i + visibleCount, experts.length)}`}
-              className={`experts-carousel__dot${i === index ? ' is-active' : ''}`}
-              onClick={() => {
-                setFlippedId(null)
-                setIndex(i)
-              }}
-            />
-          ))}
+          {Array.from({ length: pageCount }, (_, i) => {
+            const pageStart = i * visibleCount + 1
+            const pageEnd = Math.min((i + 1) * visibleCount, experts.length)
+            return (
+              <button
+                key={i}
+                type="button"
+                role="tab"
+                aria-selected={i === page}
+                aria-label={`Show experts ${pageStart} to ${pageEnd}`}
+                className={`experts-carousel__dot${i === page ? ' is-active' : ''}`}
+                onClick={() => changePage(i)}
+                disabled={busy}
+              />
+            )
+          })}
         </div>
         <button
           type="button"
           className="experts-carousel__btn"
-          onClick={() => go(1)}
+          onClick={() => changePage(page + 1)}
           disabled={!canNext}
           aria-label="Next experts"
         >

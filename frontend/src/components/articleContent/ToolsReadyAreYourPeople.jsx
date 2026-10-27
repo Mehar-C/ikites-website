@@ -110,9 +110,21 @@ export default function ToolsReadyAreYourPeople() {
         </div>
       </div>
 
+      <div className="article-author-box">
+        <div className="article-author-avatar" aria-hidden="true">
+          <img src="/experts/Manan%20pic.jpg" alt="" className="article-author-avatar-img" />
+        </div>
+        <div className="article-author-info">
+          <p className="article-author-name"><strong>Manan Anand – Author</strong></p>
+          <p className="article-author-bio">
+            Manan is the Operations Lead at iKites Consulting and an engineering graduate from the University of Waterloo.
+          </p>
+        </div>
+      </div>
+
       <p className="article-disclaimer">
         <em>
-          The views and opinions expressed in this article are those of the author and do not necessarily reflect the official position or views of iKites Consulting Inc. This content is intended for informational purposes only.
+          The views and opinions expressed in this article do not necessarily reflect the official position or views of iKites Consulting Inc. This content is intended for informational purposes only.
         </em>
       </p>
     </>
